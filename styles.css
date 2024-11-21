@@ -394,8 +394,8 @@ body {
 }
 
 .feedback-qr {
-    width: 180px;
-    height: 180px;
+    width: 220px;
+    height: 220px;
     flex-shrink: 0;
     padding: 10px;
     background: #fff;
@@ -432,5 +432,7 @@ body {
     
     .feedback-qr {
         margin: 0 auto;
+        width: 200px;
+        height: 200px;
     }
 } 
