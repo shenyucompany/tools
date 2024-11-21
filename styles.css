@@ -350,4 +350,78 @@ body {
     .nav-links {
         gap: 16px;
     }
+}
+
+/* 修改反馈部分的样式 */
+.feedback-section {
+    background-color: #ffffff;
+    padding: 4rem 0;
+    margin: 3rem 0;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.05);
+}
+
+.feedback-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.feedback-title {
+    font-size: 2.2rem;
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.feedback-description {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.feedback-qr {
+    width: 220px;
+    height: 220px;
+    margin: 0 auto;
+    padding: 10px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+}
+
+.feedback-qr:hover {
+    transform: scale(1.02);
+}
+
+.feedback-qr img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* 添加响应式设计 */
+@media (max-width: 768px) {
+    .feedback-section {
+        padding: 3rem 1rem;
+    }
+    
+    .feedback-title {
+        font-size: 1.8rem;
+    }
+    
+    .feedback-description {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .feedback-qr {
+        width: 180px;
+        height: 180px;
+    }
 } 
