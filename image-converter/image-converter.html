@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片格式转换工具 | 工具箱</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="../index.html" class="nav-brand">
+                    <h2>工具箱</h2>
+                </a>
+                <div class="nav-links">
+                    <a href="../index.html">所有工具</a>
+                    <a href="#" class="active">图片格式转换工具</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <header>
+                <h1>图片格式转换工具</h1>
+                <p class="subtitle">快速转换图片格式</p>
+            </header>
+
+            <main>
+                <section class="upload-section">
+                    <div class="upload-area">
+                        <input type="file" id="file-input" accept="image/*" multiple>
+                        <label for="file-input">
+                            <svg class="upload-icon" viewBox="0 0 24 24">
+                                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                            </svg>
+                            <span>选择图片文件</span>
+                        </label>
+                    </div>
+                    <div id="file-info" class="file-info"></div>
+                    <div id="convert-options" class="convert-options" style="display: none;">
+                        <h3>转换设置</h3>
+                        <div class="convert-form">
+                            <div class="form-group">
+                                <label for="output-format">输出格式</label>
+                                <select id="output-format">
+                                    <option value="jpeg">JPEG</option>
+                                    <option value="png">PNG</option>
+                                    <option value="webp">WEBP</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="convert-button" disabled>转换图片</button>
+                    <div id="progress" class="progress"></div>
+                </section>
+
+                <section class="manual">
+                    <h2>📖 使用说明</h2>
+                    <div class="manual-content">
+                        <ol>
+                            <li>点击<strong>"选择图片文件"</strong>按钮，选择需要转换格式的图片文件</li>
+                            <li>选择输出格式：JPEG、PNG或WEBP</li>
+                            <li>点击<strong>"转换图片"</strong>按钮开始处理</li>
+                            <li>处理完成后，系统会自动下载转换后的图片文件</li>
+                        </ol>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>工具箱</h3>
+                    <p>让工作更高效，让生活更简单</p>
+                </div>
+                <div class="footer-bottom">
+                    <p class="copyright">© 2024 工具箱 - 专注于提供高效的在线工具</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

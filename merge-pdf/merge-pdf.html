@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF合并工具 | 工具箱</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="../index.html" class="nav-brand">
+                    <h2>工具箱</h2>
+                </a>
+                <div class="nav-links">
+                    <a href="../index.html">所有工具</a>
+                    <a href="#" class="active">PDF合并工具</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <header>
+                <h1>PDF合并工具</h1>
+                <p class="subtitle">快速合并多个PDF文件，支持批量处理</p>
+            </header>
+
+            <main>
+                <section class="upload-section">
+                    <div class="upload-area">
+                        <input type="file" id="folder-input" webkitdirectory directory multiple>
+                        <label for="folder-input">
+                            <svg class="upload-icon" viewBox="0 0 24 24">
+                                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                            </svg>
+                            <span>选择文件夹</span>
+                        </label>
+                    </div>
+                    <div id="file-list" class="file-list"></div>
+                    <button id="merge-button" disabled>
+                        <span class="button-text">合并PDF</span>
+                    </button>
+                    <div id="progress" class="progress"></div>
+                </section>
+
+                <section class="manual">
+                    <h2>📖 使用说明</h2>
+                    <div class="manual-content">
+                        <ol>
+                            <li>点击<strong>"选择文件夹"</strong>按钮，选择包含需要合并的PDF文件的文件夹</li>
+                            <li>系统会自动识别文件夹中的所有PDF文件并显示在列表中</li>
+                            <li>确认文件列表无误后，点击<strong>"合并PDF"</strong>按钮</li>
+                            <li>等待处理完成后，系统会自动下载合并后的PDF文件</li>
+                        </ol>
+                    </div>
+                </section>
+
+                <section class="print-settings">
+                    <h2>🖨️ 打印机设置说明</h2>
+                    <div class="settings-images">
+                        <div class="settings-box">
+                            <div class="settings-header">
+                                <h3>Mac打印设置</h3>
+                                <span class="platform-badge">macOS</span>
+                            </div>
+                            <div class="image-container">
+                                <img src="mac-print-settings.png" alt="Mac打印设置示例" class="zoomable-image" title="点击查看大图">
+                                <div class="image-hint">👆 点击查看大图</div>
+                            </div>
+                            <div class="settings-steps">
+                                <p>设置步骤：</p>
+                                <ol>
+                                    <li>选择双面打印</li>
+                                    <li>设置页面布局为每页2版</li>
+                                    <li>调整打印方向为纵向</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="settings-box">
+                            <div class="settings-header">
+                                <h3>Windows打印设置</h3>
+                                <span class="platform-badge">Windows</span>
+                            </div>
+                            <div class="image-container">
+                                <img src="windows-print-settings.png" alt="Windows打印设置示例" class="zoomable-image" title="点击查看大图">
+                                <div class="image-hint">👆 点击查看大图</div>
+                            </div>
+                            <div class="settings-steps">
+                                <p>设置步骤：</p>
+                                <ol>
+                                    <li>勾选双面打印选项</li>
+                                    <li>在版式中选择每页2版</li>
+                                    <li>确保打印方向为纵向</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>工具箱</h3>
+                    <p>让工作更高效，让生活更简单</p>
+                </div>
+                <div class="footer-bottom">
+                    <p class="copyright">© 2024 工具箱 - 专注于提供高效的在线工具</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <div id="image-modal" class="modal">
+        <span class="modal-close">&times;</span>
+        <img id="modal-img" class="modal-content">
+        <div id="modal-caption"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

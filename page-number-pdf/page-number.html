@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF添加页码 | 工具箱</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="../index.html" class="nav-brand">
+                    <h2>工具箱</h2>
+                </a>
+                <div class="nav-links">
+                    <a href="../index.html">所有工具</a>
+                    <a href="#" class="active">PDF页码工具</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <header>
+                <h1>PDF页码工具</h1>
+                <p class="subtitle">快速为PDF文件添加页码</p>
+            </header>
+
+            <main>
+                <section class="upload-section">
+                    <div class="upload-area">
+                        <input type="file" id="file-input" accept=".pdf">
+                        <label for="file-input">
+                            <svg class="upload-icon" viewBox="0 0 24 24">
+                                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                            </svg>
+                            <span>选择PDF文件</span>
+                        </label>
+                    </div>
+                    <div id="file-info" class="file-info"></div>
+                    <div id="page-number-options" class="page-number-options" style="display: none;">
+                        <h3>页码设置</h3>
+                        <div class="page-number-form">
+                            <div class="form-group">
+                                <label for="start-number">起始页码</label>
+                                <input type="number" id="start-number" value="1" min="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="position">页码位置</label>
+                                <select id="position">
+                                    <option value="bottom-center">底部居中</option>
+                                    <option value="bottom-right">底部右侧</option>
+                                    <option value="bottom-left">底部左侧</option>
+                                    <option value="top-center">顶部居中</option>
+                                    <option value="top-right">顶部右侧</option>
+                                    <option value="top-left">顶部左侧</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="font-size">字体大小</label>
+                                <input type="range" id="font-size" min="8" max="24" value="12">
+                                <span id="font-size-value">12px</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="margin">页边距（毫米）</label>
+                                <input type="range" id="margin" min="5" max="30" value="10">
+                                <span id="margin-value">10mm</span>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="skip-first-page">
+                                    跳过第一页（封面）
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="add-page-number-button" disabled>添加页码</button>
+                    <div id="progress" class="progress"></div>
+                </section>
+
+                <section class="manual">
+                    <h2>📖 使用说明</h2>
+                    <div class="manual-content">
+                        <ol>
+                            <li>点击<strong>"选择PDF文件"</strong>按钮，选择需要添加页码的PDF文件</li>
+                            <li>设置页码参数：
+                                <ul>
+                                    <li>选择<strong>起始页码</strong>（默认从1开始）</li>
+                                    <li>选择页码在页面中的<strong>位置</strong></li>
+                                    <li>调整页码<strong>字体大小</strong>和<strong>页边距</strong></li>
+                                    <li>可选择是否<strong>跳过第一页</strong>（封面）</li>
+                                </ul>
+                            </li>
+                            <li>点击<strong>"添加页码"</strong>按钮开始处理</li>
+                            <li>处理完成后，系统会自动下载添加了页码的PDF文件</li>
+                        </ol>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>工具箱</h3>
+                    <p>让工作更高效，让生活更简单</p>
+                </div>
+                <div class="footer-bottom">
+                    <p class="copyright">© 2024 工具箱 - 专注于提供高效的在线工具</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

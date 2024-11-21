@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF调整页面顺序 | 工具箱</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="../index.html" class="nav-brand">
+                    <h2>工具箱</h2>
+                </a>
+                <div class="nav-links">
+                    <a href="../index.html">所有工具</a>
+                    <a href="#" class="active">PDF页面排序</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <header>
+                <h1>PDF调整页面顺序</h1>
+                <p class="subtitle">拖拽调整PDF文件中的页面顺序</p>
+            </header>
+
+            <main>
+                <section class="upload-section">
+                    <div class="upload-area">
+                        <input type="file" id="file-input" accept=".pdf">
+                        <label for="file-input">
+                            <svg class="upload-icon" viewBox="0 0 24 24">
+                                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                            </svg>
+                            <span>选择PDF文件</span>
+                        </label>
+                    </div>
+                    <div id="file-info" class="file-info"></div>
+                    <div id="pages-container" class="pages-container" style="display: none;">
+                        <h3>页面排序</h3>
+                        <p class="hint">拖拽调整页面顺序</p>
+                        <div id="pages-list" class="pages-list">
+                            <!-- 页面列表将通过JavaScript动态生成 -->
+                        </div>
+                        <div class="quick-actions">
+                            <button type="button" class="action-button" id="reverse-order">
+                                <svg viewBox="0 0 24 24" class="action-icon">
+                                    <path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z"/>
+                                </svg>
+                                反转顺序
+                            </button>
+                            <button type="button" class="action-button" id="sort-ascending">
+                                <svg viewBox="0 0 24 24" class="action-icon">
+                                    <path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/>
+                                </svg>
+                                升序排列
+                            </button>
+                            <button type="button" class="action-button" id="sort-descending">
+                                <svg viewBox="0 0 24 24" class="action-icon">
+                                    <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/>
+                                </svg>
+                                降序排列
+                            </button>
+                        </div>
+                    </div>
+                    <button id="save-button" disabled>保存PDF</button>
+                    <div id="progress" class="progress"></div>
+                </section>
+
+                <section class="manual">
+                    <h2>📖 使用说明</h2>
+                    <div class="manual-content">
+                        <ol>
+                            <li>点击<strong>"选择PDF文件"</strong>按钮，选择需要调整页面顺序的PDF文件</li>
+                            <li>调整页面顺序：
+                                <ul>
+                                    <li>通过<strong>拖拽</strong>来调整页面位置</li>
+                                    <li>使用快捷操作：<strong>反转顺序</strong>、<strong>升序排列</strong>或<strong>降序排列</strong></li>
+                                </ul>
+                            </li>
+                            <li>点击<strong>"保存PDF"</strong>按钮保存更改</li>
+                            <li>处理完成后，系统会自动下载调整后的PDF文件</li>
+                        </ol>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>工具箱</h3>
+                    <p>让工作更高效，让生活更简单</p>
+                </div>
+                <div class="footer-bottom">
+                    <p class="copyright">© 2024 工具箱 - 专注于提供高效的在线工具</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
