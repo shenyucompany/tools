@@ -355,16 +355,27 @@ body {
 /* 修改反馈部分的样式 */
 .feedback-section {
     background-color: #ffffff;
-    padding: 4rem 0;
+    padding: 3rem 0;
     margin: 3rem 0;
-    text-align: center;
     box-shadow: 0 0 20px rgba(0,0,0,0.05);
 }
 
 .feedback-container {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 0 2rem;
+}
+
+.feedback-content {
+    display: flex;
+    gap: 3rem;
+    justify-content: space-between;
+    align-items: flex-start;  /* 确保顶部对齐 */
+}
+
+.feedback-text {
+    flex: 1;
+    max-width: 600px;
 }
 
 .feedback-title {
@@ -372,22 +383,20 @@ body {
     color: var(--accent-color);
     margin-bottom: 1.5rem;
     font-weight: 600;
+    text-align: left;
 }
 
 .feedback-description {
     color: var(--text-secondary);
     line-height: 1.8;
-    margin-bottom: 2.5rem;
     font-size: 1.1rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    text-align: left;
 }
 
 .feedback-qr {
-    width: 220px;
-    height: 220px;
-    margin: 0 auto;
+    width: 180px;
+    height: 180px;
+    flex-shrink: 0;
     padding: 10px;
     background: #fff;
     border-radius: 12px;
@@ -405,23 +414,23 @@ body {
     object-fit: contain;
 }
 
-/* 添加响应式设计 */
+/* 响应式设计 */
 @media (max-width: 768px) {
     .feedback-section {
-        padding: 3rem 1rem;
+        padding: 2rem 1rem;
     }
     
-    .feedback-title {
-        font-size: 1.8rem;
+    .feedback-content {
+        flex-direction: column;
+        gap: 2rem;
     }
     
+    .feedback-title,
     .feedback-description {
-        font-size: 1rem;
-        padding: 0 1rem;
+        text-align: center;
     }
     
     .feedback-qr {
-        width: 180px;
-        height: 180px;
+        margin: 0 auto;
     }
 } 
