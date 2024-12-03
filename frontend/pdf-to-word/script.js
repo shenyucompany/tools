@@ -1,15 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const dropZone = document.getElementById('dropZone');
+    const dropZone = document.querySelector('.upload-area');
     const fileInput = document.getElementById('fileInput');
-    const fileList = document.getElementById('fileList');
+    const fileList = document.getElementById('file-list');
     const convertBtn = document.getElementById('convertBtn');
     const conversionStatus = document.getElementById('conversionStatus');
     
     let selectedFile = null;
 
-    // 点击上传区域触发文件选择
-    dropZone.addEventListener('click', () => {
-        fileInput.click();
+    // 修改：只在点击label时触发文件选择
+    const uploadLabel = dropZone.querySelector('label');
+    uploadLabel.addEventListener('click', (e) => {
+        e.stopPropagation(); // 阻止事件冒泡到dropZone
     });
 
     // 文件拖拽相关事件
@@ -57,13 +58,16 @@ document.addEventListener('DOMContentLoaded', function() {
             fileItem.className = 'file-item';
             fileItem.innerHTML = `
                 <span class="file-name">${selectedFile.name}</span>
+                <span class="file-size">${formatFileSize(selectedFile.size)}</span>
                 <span class="file-remove">×</span>
             `;
             
-            fileItem.querySelector('.file-remove').addEventListener('click', () => {
+            fileItem.querySelector('.file-remove').addEventListener('click', (e) => {
+                e.stopPropagation(); // 阻止事件冒泡
                 selectedFile = null;
                 updateFileList();
                 convertBtn.disabled = true;
+                fileInput.value = ''; // 清除文件输入
             });
 
             fileList.appendChild(fileItem);
@@ -83,23 +87,58 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
 
         try {
-            // 这里添加实际的PDF转Word转换逻辑
-            // 示例进度条动画
+            // 模拟文件转换过程
             const progress = conversionStatus.querySelector('.progress');
-            let width = 0;
-            const interval = setInterval(() => {
-                if (width >= 100) {
-                    clearInterval(interval);
-                    conversionStatus.innerHTML = '<p>转换完成！</p>';
-                    // 这里添加下载转换后的文件的逻辑
-                } else {
-                    width += 1;
-                    progress.style.width = width + '%';
+            
+            // 创建 FormData 对象
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+
+            // 发送转换请求
+            const response = await fetch('/api/convert-pdf-to-word', {
+                method: 'POST',
+                body: formData,
+                // 使用 ReadableStream 来跟踪上传进度
+                onUploadProgress: (progressEvent) => {
+                    const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                    progress.style.width = `${percentCompleted}%`;
                 }
-            }, 50);
+            });
+
+            if (!response.ok) {
+                throw new Error('转换失败');
+            }
+
+            // 获取转换后的文件
+            const blob = await response.blob();
+            
+            // 创建下载链接
+            const downloadUrl = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = downloadUrl;
+            a.download = selectedFile.name.replace('.pdf', '.docx');
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(downloadUrl);
+
+            // 显示成功消息
+            conversionStatus.innerHTML = '<p style="color: #4CAF50;">✅ 转换完成！文件已自动下载</p>';
+            convertBtn.disabled = false;
+
         } catch (error) {
-            conversionStatus.innerHTML = '<p style="color: #dc3545;">转换失败，请重试</p>';
+            console.error('转换错误:', error);
+            conversionStatus.innerHTML = '<p style="color: #dc3545;">❌ 转换失败，请重试</p>';
             convertBtn.disabled = false;
         }
     });
+
+    // 文件大小格式化函数
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 B';
+        const k = 1024;
+        const sizes = ['B', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
 }); 
