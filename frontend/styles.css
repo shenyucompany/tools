@@ -421,4 +421,29 @@ body {
     .feedback-section {
         display: none;
     }
+}
+
+/* 添加或修改以下样式 */
+.container header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.container header h1 {
+    font-size: 32px;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.container header .subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1em;
+}
+
+/* 其他标题居中 */
+.manual h2,
+.features h2,
+.print-settings h2 {
+    text-align: center;
+    justify-content: center;
 } 

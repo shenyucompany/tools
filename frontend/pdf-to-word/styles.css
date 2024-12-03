@@ -1,0 +1,196 @@
+:root {
+    --primary-color: #0066ff;
+    --primary-dark: #0052cc;
+    --success-color: #4CAF50;
+    --success-dark: #45a049;
+    --text-primary: #1a1a1a;
+    --text-secondary: #666666;
+    --background-light: #f8f9fa;
+    --border-radius: 8px;
+    --box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 上传区域样式 */
+.upload-section {
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.upload-area {
+    border: 2px dashed #ccc;
+    border-radius: var(--border-radius);
+    padding: 30px;
+    text-align: center;
+    transition: border-color 0.3s;
+}
+
+.upload-area:hover {
+    border-color: var(--primary-color);
+}
+
+#fileInput {
+    display: none;
+}
+
+.upload-icon {
+    width: 48px;
+    height: 48px;
+    fill: white;
+    margin-bottom: 10px;
+}
+
+label {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 15px 30px;
+    background-color: var(--success-color);
+    color: white;
+    border-radius: var(--border-radius);
+    transition: all 0.3s;
+    min-width: 200px;
+}
+
+label:hover {
+    background-color: var(--success-dark);
+    transform: translateY(-2px);
+}
+
+.file-list {
+    margin: 20px auto;
+    text-align: left;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 10px;
+    background: var(--background-light);
+    border-radius: var(--border-radius);
+    max-width: 800px;
+}
+
+/* 使用说明样式 */
+.manual {
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 40px;
+}
+
+.manual h2 {
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.manual-content {
+    padding: 20px;
+    background: var(--background-light);
+    border-radius: var(--border-radius);
+}
+
+.manual ol {
+    padding-left: 20px;
+}
+
+.manual li {
+    margin-bottom: 15px;
+    color: var(--text-secondary);
+}
+
+.manual strong {
+    color: var(--primary-color);
+}
+
+/* 功能特点样式 */
+.features {
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.features h2 {
+    color: var(--text-primary);
+    margin-bottom: 20px;
+}
+
+.features-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.feature-box {
+    background: var(--background-light);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    transition: transform 0.3s;
+}
+
+.feature-box:hover {
+    transform: translateY(-5px);
+}
+
+.feature-box h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.feature-box p {
+    color: var(--text-secondary);
+}
+
+/* 按钮和状态样式 */
+button {
+    padding: 12px 30px;
+    font-size: 1.1em;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s;
+    min-width: 200px;
+    margin: 20px auto;
+    display: block;
+}
+
+button:hover:not(:disabled) {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.progress {
+    margin-top: 20px;
+    color: var(--text-secondary);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .features-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .upload-section,
+    .manual,
+    .features {
+        padding: 20px;
+    }
+} 
