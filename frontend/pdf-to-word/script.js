@@ -128,7 +128,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 xhr.onerror = () => reject(new Error('网络错误'));
 
-                xhr.open('POST', 'http://localhost:8000/api/convert-pdf-to-word');
+                // 修改 API 地址
+                const API_URL = 'https://your-app.railway.app';  // 替换为你的 Railway 域名
+
+                xhr.open('POST', `${API_URL}/api/convert-pdf-to-word`);
                 xhr.responseType = 'blob';
                 xhr.send(formData);
 
