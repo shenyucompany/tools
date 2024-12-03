@@ -87,32 +87,41 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
 
         try {
-            // 模拟文件转换过程
             const progress = conversionStatus.querySelector('.progress');
             
             // 创建 FormData 对象
             const formData = new FormData();
             formData.append('file', selectedFile);
 
-            // 发送转换请求
-            const response = await fetch('/api/convert-pdf-to-word', {
-                method: 'POST',
-                body: formData,
-                // 使用 ReadableStream 来跟踪上传进度
-                onUploadProgress: (progressEvent) => {
-                    const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                    progress.style.width = `${percentCompleted}%`;
-                }
+            // 修改：使用 XMLHttpRequest 来处理上传进度
+            const xhr = new XMLHttpRequest();
+            
+            // 创建一个 Promise 来处理异步请求
+            const response = await new Promise((resolve, reject) => {
+                xhr.upload.onprogress = (event) => {
+                    if (event.lengthComputable) {
+                        const percentComplete = (event.loaded / event.total) * 100;
+                        progress.style.width = percentComplete + '%';
+                    }
+                };
+
+                xhr.onload = () => {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        resolve(xhr.response);
+                    } else {
+                        reject(new Error('转换失败'));
+                    }
+                };
+
+                xhr.onerror = () => reject(new Error('网络错误'));
+
+                xhr.open('POST', 'http://localhost:8000/api/convert-pdf-to-word');
+                xhr.responseType = 'blob';
+                xhr.send(formData);
             });
 
-            if (!response.ok) {
-                throw new Error('转换失败');
-            }
-
-            // 获取转换后的文件
-            const blob = await response.blob();
-            
             // 创建下载链接
+            const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
             const downloadUrl = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = downloadUrl;
