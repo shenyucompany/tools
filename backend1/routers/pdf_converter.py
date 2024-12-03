@@ -8,6 +8,7 @@ import logging
 import traceback
 import shutil
 from fastapi import Request
+import urllib.parse
 
 router = APIRouter()
 
@@ -89,15 +90,20 @@ async def convert_pdf_to_word(file: UploadFile, request: Request):
         # 清理原始临时目录
         shutil.rmtree(temp_dir)
 
+        # 处理中文文件名
+        output_filename = file.filename.replace('.pdf', '.docx')
+        encoded_filename = urllib.parse.quote(output_filename)
+
         # 创建响应
         response = FileResponse(
             final_docx_path,
             media_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            filename=file.filename.replace('.pdf', '.docx'),
+            filename=output_filename,
             background=None
         )
 
-        response.headers["Content-Disposition"] = f'attachment; filename="{file.filename.replace(".pdf", ".docx")}"'
+        # 设置响应头，使用 UTF-8 编码的文件名
+        response.headers["Content-Disposition"] = f"attachment; filename*=UTF-8''{encoded_filename}"
         logger.info("响应创建成功")
 
         async def cleanup():
