@@ -78,16 +78,25 @@ document.addEventListener('DOMContentLoaded', function() {
     convertBtn.addEventListener('click', async () => {
         if (!selectedFile) return;
 
+        // 检查文件大小
+        const maxSize = 100 * 1024 * 1024; // 100MB
+        if (selectedFile.size > maxSize) {
+            conversionStatus.innerHTML = '<p style="color: #dc3545;">❌ 文件大小超过限制（最大100MB）</p>';
+            return;
+        }
+
         convertBtn.disabled = true;
         conversionStatus.innerHTML = `
             <p>正在转换中...</p>
             <div class="progress-bar">
                 <div class="progress" style="width: 0%"></div>
             </div>
+            <p class="progress-text">准备转换...</p>
         `;
 
         try {
             const progress = conversionStatus.querySelector('.progress');
+            const progressText = conversionStatus.querySelector('.progress-text');
             
             // 创建 FormData 对象
             const formData = new FormData();
@@ -98,18 +107,22 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // 创建一个 Promise 来处理异步请求
             const response = await new Promise((resolve, reject) => {
+                // 上传进度
                 xhr.upload.onprogress = (event) => {
                     if (event.lengthComputable) {
-                        const percentComplete = (event.loaded / event.total) * 100;
+                        const percentComplete = (event.loaded / event.total) * 50; // 上传占50%进度
                         progress.style.width = percentComplete + '%';
+                        progressText.textContent = `上传中... ${Math.round(percentComplete)}%`;
                     }
                 };
 
                 xhr.onload = () => {
                     if (xhr.status >= 200 && xhr.status < 300) {
+                        progress.style.width = '100%';
+                        progressText.textContent = '转换完成！';
                         resolve(xhr.response);
                     } else {
-                        reject(new Error('转换失败'));
+                        reject(new Error(xhr.responseText || '转换失败'));
                     }
                 };
 
@@ -118,6 +131,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 xhr.open('POST', 'http://localhost:8000/api/convert-pdf-to-word');
                 xhr.responseType = 'blob';
                 xhr.send(formData);
+
+                // 模拟转换进度（因为服务器没有实时进度反馈）
+                let conversionProgress = 50;
+                const interval = setInterval(() => {
+                    if (conversionProgress < 90) {
+                        conversionProgress += 1;
+                        progress.style.width = conversionProgress + '%';
+                        progressText.textContent = `转换中... ${Math.round(conversionProgress)}%`;
+                    } else {
+                        clearInterval(interval);
+                    }
+                }, 100);
             });
 
             // 创建下载链接
@@ -137,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         } catch (error) {
             console.error('转换错误:', error);
-            conversionStatus.innerHTML = '<p style="color: #dc3545;">❌ 转换失败，请重试</p>';
+            conversionStatus.innerHTML = `<p style="color: #dc3545;">❌ ${error.message}</p>`;
             convertBtn.disabled = false;
         }
     });

@@ -7,6 +7,7 @@ from typing import Optional
 import logging
 import traceback
 import shutil
+from fastapi import Request
 
 router = APIRouter()
 
@@ -17,8 +18,21 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# 设置最大文件大小（100MB）
+MAX_FILE_SIZE = 100 * 1024 * 1024  # 100MB in bytes
+
+class ConversionProgress:
+    def __init__(self):
+        self.total_pages = 0
+        self.current_page = 0
+
+    def update(self, current, total):
+        self.current_page = current
+        self.total_pages = total
+        logger.info(f"转换进度: {current}/{total} 页")
+
 @router.post("/api/convert-pdf-to-word")
-async def convert_pdf_to_word(file: UploadFile):
+async def convert_pdf_to_word(file: UploadFile, request: Request):
     pdf_path = None
     docx_path = None
     
@@ -31,22 +45,32 @@ async def convert_pdf_to_word(file: UploadFile):
             logger.warning(f"文件类型错误: {file.content_type}")
             raise HTTPException(status_code=400, detail="只支持PDF文件")
 
+        # 检查文件大小
+        content = await file.read()
+        if len(content) > MAX_FILE_SIZE:
+            raise HTTPException(
+                status_code=400,
+                detail=f"文件大小超过限制，最大允许{MAX_FILE_SIZE/1024/1024}MB"
+            )
+
         # 创建临时目录
         temp_dir = tempfile.mkdtemp()
         pdf_path = os.path.join(temp_dir, "input.pdf")
         docx_path = os.path.join(temp_dir, "output.docx")
 
         # 保存上传的PDF文件
-        content = await file.read()
         logger.info(f"文件大小: {len(content)} bytes")
         
         with open(pdf_path, 'wb') as f:
             f.write(content)
         logger.info(f"PDF文件保存成功: {pdf_path}")
 
+        # 创建进度回调对象
+        progress = ConversionProgress()
+
         # 转换PDF到Word
         cv = Converter(pdf_path)
-        cv.convert(docx_path)
+        cv.convert(docx_path, progress_callback=progress.update)
         cv.close()
         logger.info("PDF转换为Word完成")
 
@@ -70,14 +94,12 @@ async def convert_pdf_to_word(file: UploadFile):
             final_docx_path,
             media_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document',
             filename=file.filename.replace('.pdf', '.docx'),
-            background=None  # 禁用后台任务
+            background=None
         )
 
-        # 设置响应头
         response.headers["Content-Disposition"] = f'attachment; filename="{file.filename.replace(".pdf", ".docx")}"'
         logger.info("响应创建成功")
 
-        # 设置回调以在响应发送后删除临时文件
         async def cleanup():
             try:
                 if os.path.exists(final_docx_path):
@@ -90,7 +112,6 @@ async def convert_pdf_to_word(file: UploadFile):
         return response
 
     except Exception as e:
-        # 清理临时文件
         if pdf_path and os.path.exists(os.path.dirname(pdf_path)):
             shutil.rmtree(os.path.dirname(pdf_path))
         
