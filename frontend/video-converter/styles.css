@@ -1,0 +1,199 @@
+.converter-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.upload-section {
+    margin-bottom: 30px;
+}
+
+.upload-area {
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-area:hover {
+    border-color: var(--accent-color);
+    background-color: rgba(0, 102, 255, 0.02);
+}
+
+.upload-area.drag-over {
+    border-color: var(--accent-color);
+    background-color: rgba(0, 102, 255, 0.05);
+}
+
+.upload-icon {
+    width: 48px;
+    height: 48px;
+    fill: var(--accent-color);
+    margin-bottom: 16px;
+}
+
+.upload-text p {
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.upload-hint {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: 8px;
+}
+
+.settings-section {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+}
+
+.video-preview {
+    margin-bottom: 24px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
+}
+
+#videoPreview {
+    width: 100%;
+    max-height: 400px;
+    display: block;
+}
+
+.conversion-settings {
+    display: grid;
+    gap: 20px;
+}
+
+.setting-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.setting-group label {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.setting-group select {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-primary);
+    background-color: white;
+}
+
+.convert-button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.convert-button:hover {
+    background-color: #0052cc;
+}
+
+.progress-section {
+    margin-top: 24px;
+    text-align: center;
+}
+
+.progress-container {
+    margin-bottom: 16px;
+}
+
+.progress-bar {
+    height: 8px;
+    background-color: var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.progress {
+    height: 100%;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.status-text {
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+.manual {
+    margin-top: 60px;
+}
+
+.manual h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.manual-content {
+    display: grid;
+    gap: 24px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.step-number {
+    width: 32px;
+    height: 32px;
+    background-color: var(--accent-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.step-text h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    color: var(--text-primary);
+}
+
+.step-text p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .upload-area {
+        padding: 24px;
+    }
+
+    .settings-section {
+        padding: 16px;
+    }
+
+    .manual-content {
+        gap: 16px;
+    }
+} 
