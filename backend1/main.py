@@ -1,7 +1,7 @@
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import pdf_converter
+from routers import pdf_converter, video_converter
 
 app = FastAPI()
 
@@ -16,6 +16,7 @@ app.add_middleware(
 
 # 注册路由
 app.include_router(pdf_converter.router)
+app.include_router(video_converter.router)
 
 if __name__ == "__main__":
     import uvicorn
