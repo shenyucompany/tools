@@ -72,22 +72,67 @@ document.addEventListener('DOMContentLoaded', function() {
     // 处理视频转换
     convertBtn.addEventListener('click', startConversion);
 
-    function startConversion() {
+    async function startConversion() {
+        const file = fileInput.files[0];
+        if (!file) {
+            alert('请先选择视频文件');
+            return;
+        }
+
         // 显示进度条
         progressSection.style.display = 'block';
         convertBtn.disabled = true;
 
-        // 模拟转换进度
-        let progress = 0;
-        const interval = setInterval(() => {
-            progress += 1;
-            updateProgress(progress);
+        try {
+            const formData = new FormData();
+            formData.append('video', file);
+            formData.append('output_format', document.getElementById('formatSelect').value);
+            formData.append('quality', document.getElementById('qualitySelect').value);
+            formData.append('resolution', document.getElementById('resolutionSelect').value);
 
-            if (progress >= 100) {
-                clearInterval(interval);
-                completeConversion();
+            // 创建进度更新器
+            const progressInterval = setInterval(() => {
+                if (parseInt(progressBar.style.width) < 90) {
+                    updateProgress(parseInt(progressBar.style.width) + 1);
+                }
+            }, 200);
+
+            const response = await fetch('http://localhost:8000/api/video/convert', {
+                method: 'POST',
+                body: formData
+            });
+
+            clearInterval(progressInterval);
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.detail || '视频转换失败');
             }
-        }, 50);
+
+            // 获取blob数据
+            const blob = await response.blob();
+            
+            // 创建下载链接
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `converted.${document.getElementById('formatSelect').value}`;
+            
+            // 更新进度到100%并完成转换
+            updateProgress(100);
+            completeConversion();
+            
+            // 触发下载
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+
+        } catch (error) {
+            console.error('转换失败:', error);
+            alert('视频转换失败，请重试');
+            resetConverter();
+        }
     }
 
     function updateProgress(value) {
