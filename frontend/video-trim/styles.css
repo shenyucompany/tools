@@ -20,22 +20,23 @@
     cursor: pointer;
     transition: all 0.3s ease;
     background: var(--background-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .upload-area:hover {
-    border-color: var(--accent-color);
-    background-color: rgba(0, 102, 255, 0.05);
+    border-color: #4CAF50;
+    background-color: rgba(76, 175, 80, 0.05);
 }
 
 .upload-area.drag-over {
-    border-color: var(--accent-color);
-    background-color: rgba(0, 102, 255, 0.1);
+    border-color: #4CAF50;
+    background-color: rgba(76, 175, 80, 0.1);
 }
 
 .upload-icon {
     width: 48px;
     height: 48px;
-    fill: var(--accent-color);
+    fill: #4CAF50;
     margin-bottom: 16px;
 }
 
@@ -56,6 +57,10 @@
 .manual-section {
     margin-top: 60px;
     text-align: center;
+    padding: 40px;
+    background: var(--background-color);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .manual-section h2 {
@@ -78,12 +83,20 @@
     text-align: center;
     flex: 1;
     min-width: 200px;
+    padding: 20px;
+    background: var(--background-color);
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.step-item:hover {
+    transform: translateY(-5px);
 }
 
 .step-number {
     width: 36px;
     height: 36px;
-    background: var(--accent-color);
+    background: #4CAF50;
     color: #fff;
     font-size: 18px;
     font-weight: 600;
@@ -113,7 +126,7 @@
     border-radius: 12px;
     overflow: hidden;
     background: #000;
-    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 #videoPreview {
@@ -129,7 +142,7 @@
     padding: 24px;
     background: var(--background-color);
     border-radius: 12px;
-    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .time-range {
@@ -161,8 +174,8 @@
 
 .setting-group input:focus {
     outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 2px rgba(0, 102, 255, 0.1);
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
 }
 
 /* 时间轴样式 */
@@ -194,7 +207,7 @@
     top: 50%;
     width: 16px;
     height: 16px;
-    background: var(--accent-color);
+    background: #4CAF50;
     border-radius: 50%;
     transform: translate(-50%, -50%);
     cursor: pointer;
@@ -214,7 +227,7 @@
     position: absolute;
     top: 50%;
     height: 4px;
-    background: var(--accent-color);
+    background: #4CAF50;
     transform: translateY(-50%);
     pointer-events: none;
 }
@@ -228,7 +241,7 @@
 
 /* 按钮样式 */
 .trim-button {
-    background-color: var(--accent-color);
+    background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 8px;
@@ -240,7 +253,7 @@
 }
 
 .trim-button:hover {
-    background-color: var(--accent-color-dark);
+    background-color: #43A047;
 }
 
 .trim-button:disabled {
@@ -255,7 +268,7 @@
     padding: 24px;
     background: var(--background-color);
     border-radius: 12px;
-    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .progress-container {
@@ -272,7 +285,7 @@
 
 .progress {
     height: 100%;
-    background-color: var(--accent-color);
+    background-color: #4CAF50;
     transition: width 0.3s ease;
 }
 
