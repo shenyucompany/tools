@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频压缩 - 工具箱</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="../index.html" class="nav-brand">
+                    <h2>工具箱</h2>
+                </a>
+                <div class="nav-links">
+                    <a href="../index.html">所有工具</a>
+                    <a href="./video-compress.html" class="active">视频压缩</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <header>
+                <h1>视频压缩</h1>
+                <p class="subtitle">压缩视频文件大小，支持多种格式</p>
+            </header>
+
+            <div class="converter-container">
+                <div class="upload-section">
+                    <div class="upload-area" id="dropArea">
+                        <input type="file" id="fileInput" accept="video/*" hidden>
+                        <div class="upload-content">
+                            <div class="upload-icon-wrapper">
+                                <svg class="upload-icon" viewBox="0 0 24 24">
+                                    <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                                </svg>
+                            </div>
+                            <div class="upload-text">
+                                <p>选择视频文件</p>
+                                <p class="upload-hint">支持 MP4, AVI, MOV, WMV, FLV 等格式</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section" style="display: none;">
+                    <div class="video-preview">
+                        <video id="videoPreview" controls>
+                            您的浏览器不支持视频预览
+                        </video>
+                    </div>
+
+                    <div class="compression-settings">
+                        <div class="setting-group">
+                            <label for="qualitySelect">压缩质量</label>
+                            <select id="qualitySelect">
+                                <option value="high">高质量 (轻度压缩)</option>
+                                <option value="medium">中等质量 (中度压缩)</option>
+                                <option value="low">低质量 (高度压缩)</option>
+                            </select>
+                        </div>
+
+                        <div class="setting-group">
+                            <label for="resolutionSelect">输出分辨率</label>
+                            <select id="resolutionSelect">
+                                <option value="original">保持原始分辨率</option>
+                                <option value="1080p">1080p</option>
+                                <option value="720p">720p</option>
+                                <option value="480p">480p</option>
+                            </select>
+                        </div>
+
+                        <button id="compressBtn" class="compress-button">开始压缩</button>
+                    </div>
+                </div>
+
+                <div class="progress-section" style="display: none;">
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-text">0%</div>
+                    </div>
+                    <p class="status-text">正在压缩中...</p>
+                </div>
+            </div>
+
+            <div class="manual">
+                <h2> 使用说明</h2>
+                <div class="manual-content">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-text">
+                            <h3>选择视频文件</h3>
+                            <p>点击上传区域或直接拖拽视频文件到上传区域</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">
+                            <h3>选择压缩设置</h3>
+                            <p>选择压缩质量和输出分辨率</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">
+                            <h3>开始压缩</h3>
+                            <p>点击"开始压缩"按钮，等待压缩完成后下载</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>工具箱</h3>
+                    <p>让工作更高效，让生活更简单</p>
+                </div>
+                <div class="footer-bottom">
+                    <p class="copyright">© 2024 工具箱 - 专注于提供高效的在线工具</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html> 
