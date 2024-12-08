@@ -1,7 +1,7 @@
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import pdf_converter, video_converter, video_compress, video_trim, video_merge, video_watermark
+from routers import pdf_converter, video_converter, video_compress, video_trim, video_merge, video_watermark, video_extract
 
 app = FastAPI()
 
@@ -21,6 +21,7 @@ app.include_router(video_compress.router)
 app.include_router(video_trim.router)
 app.include_router(video_merge.router)
 app.include_router(video_watermark.router)
+app.include_router(video_extract.router)
 
 if __name__ == "__main__":
     import uvicorn

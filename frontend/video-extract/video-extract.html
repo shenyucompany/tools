@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频提取 - 工具箱</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="../index.html" class="nav-brand">
+                    <h2>工具箱</h2>
+                </a>
+                <div class="nav-links">
+                    <a href="../index.html">所有工具</a>
+                    <a href="./video-extract.html" class="active">视频提取</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <header>
+                <h1>视频提取</h1>
+                <p class="subtitle">提取视频中的音频，支持多种格式</p>
+            </header>
+
+            <div class="converter-container">
+                <div class="upload-section">
+                    <div class="upload-area" id="dropArea">
+                        <input type="file" id="fileInput" accept="video/*" hidden>
+                        <svg class="upload-icon" viewBox="0 0 24 24">
+                            <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                        </svg>
+                        <div class="upload-text">
+                            <p>选择视频文件</p>
+                            <p class="upload-hint">支持 MP4, AVI, MOV, WMV, FLV 等格式</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section" style="display: none;">
+                    <div class="video-preview">
+                        <video id="videoPreview" controls>
+                            您的浏览器不支持视频预览
+                        </video>
+                    </div>
+
+                    <div class="extract-settings">
+                        <div class="setting-group">
+                            <label for="extractType">提取类型</label>
+                            <select id="extractType">
+                                <option value="audio">提取音频</option>
+                                <option value="frames">提取视频帧</option>
+                            </select>
+                        </div>
+
+                        <div id="audioSettings">
+                            <div class="setting-group">
+                                <label for="format">输出格式</label>
+                                <select id="format">
+                                    <option value="mp3">MP3</option>
+                                    <option value="aac">AAC</option>
+                                    <option value="wav">WAV</option>
+                                </select>
+                            </div>
+
+                            <div class="setting-group">
+                                <label for="quality">音频质量</label>
+                                <select id="quality">
+                                    <option value="128k">普通 (128kbps)</option>
+                                    <option value="192k" selected>高质量 (192kbps)</option>
+                                    <option value="320k">超高质量 (320kbps)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="frameSettings" style="display: none;">
+                            <div class="setting-group">
+                                <label for="frameRate">提取频率</label>
+                                <select id="frameRate">
+                                    <option value="1">每秒1帧</option>
+                                    <option value="2">每秒2帧</option>
+                                    <option value="5">每秒5帧</option>
+                                    <option value="10">每秒10帧</option>
+                                </select>
+                            </div>
+
+                            <div class="setting-group">
+                                <label for="imageFormat">图片格式</label>
+                                <select id="imageFormat">
+                                    <option value="jpg">JPG</option>
+                                    <option value="png">PNG</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button id="extractBtn" class="extract-button">开始提取</button>
+                    </div>
+                </div>
+
+                <div class="progress-section" style="display: none;">
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-text">0%</div>
+                    </div>
+                    <p class="status-text">正在处理中...</p>
+                </div>
+            </div>
+
+            <div class="manual-section">
+                <h2>使用说明</h2>
+                <div class="steps">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">选择视频文件</div>
+                        <div class="step-desc">点击上传区域或直接拖拽视频文件</div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">选择输出格式</div>
+                        <div class="step-desc">选择音频格式和质量</div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">开始提取</div>
+                        <div class="step-desc">点击"开始提取"按钮，等待处理完成后下载</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>工具箱</h3>
+                    <p>让工作更高效，让生活更简单</p>
+                </div>
+                <div class="footer-bottom">
+                    <p class="copyright">© 2024 工具箱 - 专注于提供高效的在线工具</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html> 
