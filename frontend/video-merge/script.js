@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }, 200);
 
-            const response = await fetch('http://localhost:8000/api/video/merge', {
+            const response = await fetch('https://tools-as5l.onrender.com/api/video/merge', {
                 method: 'POST',
                 body: formData
             });
