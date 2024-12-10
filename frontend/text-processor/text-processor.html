@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文本处理工具 | 工具箱</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="../index.html" class="nav-brand">
+                    <h2>工具箱</h2>
+                </a>
+                <div class="nav-links">
+                    <a href="../index.html">所有工具</a>
+                    <a href="#" class="active">文本处理</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <header>
+                <h1>文本处理工具</h1>
+                <p class="subtitle">提供多种文本处理功能</p>
+            </header>
+
+            <main>
+                <section class="editor-section">
+                    <div class="editor-container">
+                        <textarea id="input-text" placeholder="在此输入或粘贴文本..."></textarea>
+                        <div class="toolbar">
+                            <div class="tool-group">
+                                <h3>查找替换</h3>
+                                <div class="search-replace">
+                                    <input type="text" id="search-text" placeholder="查找内容">
+                                    <input type="text" id="replace-text" placeholder="替换为">
+                                    <button id="replace-btn">替换</button>
+                                    <button id="replace-all-btn">全部替换</button>
+                                </div>
+                            </div>
+
+                            <div class="tool-group">
+                                <h3>大小写转换</h3>
+                                <div class="case-buttons">
+                                    <button id="uppercase-btn">转大写</button>
+                                    <button id="lowercase-btn">转小写</button>
+                                    <button id="capitalize-btn">首字母大写</button>
+                                </div>
+                            </div>
+
+                            <div class="tool-group">
+                                <h3>空白处理</h3>
+                                <div class="space-buttons">
+                                    <button id="trim-spaces-btn">去除多余空格</button>
+                                    <button id="remove-empty-lines-btn">去除空行</button>
+                                </div>
+                            </div>
+
+                            <div class="tool-group">
+                                <h3>行处理</h3>
+                                <div class="line-buttons">
+                                    <button id="remove-duplicates-btn">删除重复行</button>
+                                    <button id="sort-lines-btn">文本排序</button>
+                                    <button id="add-line-numbers-btn">添加行号</button>
+                                    <button id="remove-line-numbers-btn">删除行号</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button id="copy-btn" class="primary-button">复制结果</button>
+                        <button id="clear-btn" class="secondary-button">清空文本</button>
+                    </div>
+                </section>
+
+                <section class="manual">
+                    <h2>使用说明</h2>
+                    <div class="manual-content">
+                        <h3>查找替换</h3>
+                        <ol>
+                            <li>在<strong>查找内容</strong>框中输入要查找的文本</li>
+                            <li>在<strong>替换为</strong>框中输入要替换的文本</li>
+                            <li>点击<strong>替换</strong>或<strong>全部替换</strong></li>
+                        </ol>
+
+                        <h3>大小写转换</h3>
+                        <ol>
+                            <li>选择需要转换的文本（不选择则处理全部）</li>
+                            <li>点击相应的转换按钮：<strong>转大写</strong>、<strong>转小写</strong>或<strong>首字母大写</strong></li>
+                        </ol>
+
+                        <h3>空白处理</h3>
+                        <ol>
+                            <li>点击<strong>去除多余空格</strong>删除文本中的连续空格</li>
+                            <li>点击<strong>去除空行</strong>删除文本中的空白行</li>
+                        </ol>
+
+                        <h3>行处理</h3>
+                        <ol>
+                            <li>点击<strong>删除重复行</strong>去除重复的文本行</li>
+                            <li>点击<strong>文本排序</strong>对文本行进行排序</li>
+                            <li>点击<strong>添加行号</strong>或<strong>删除行号</strong>处理行号</li>
+                        </ol>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>工具箱</h3>
+                    <p>让工作更高效，让生活更简单</p>
+                </div>
+                <div class="footer-bottom">
+                    <p class="copyright">© 2024 工具箱 - 专注于提供高效的在线工具</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
