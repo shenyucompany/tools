@@ -15,4 +15,7 @@ google-cloud-speech==2.21.0
 gTTS==2.3.2
 ffmpeg-python==0.2.0
 sounddevice==0.4.6
-soundfile==0.12.1 
+soundfile==0.12.1
+chardet==5.2.0
+reportlab==4.0.8
+striprtf==0.0.26 

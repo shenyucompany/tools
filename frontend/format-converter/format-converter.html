@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>格式转换工具 | 工具箱</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="../index.html" class="nav-brand">
+                    <h2>工具箱</h2>
+                </a>
+                <div class="nav-links">
+                    <a href="../index.html">所有工具</a>
+                    <a href="#" class="active">格式转换</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <header>
+                <h1>格式转换工具</h1>
+                <p class="subtitle">提供多种格式转换功能</p>
+            </header>
+
+            <main>
+                <section class="editor-section">
+                    <div class="editor-container">
+                        <div class="input-panel">
+                            <div class="panel-header">
+                                <h3>输入</h3>
+                                <div class="input-controls">
+                                    <button id="paste-btn" class="control-btn">粘贴</button>
+                                    <button id="clear-btn" class="control-btn">清空</button>
+                                    <input type="file" id="file-input" hidden>
+                                    <label for="file-input" class="control-btn">打开文件</label>
+                                </div>
+                            </div>
+                            <textarea id="input-text" placeholder="在此输入或粘贴文本..."></textarea>
+                        </div>
+
+                        <div class="toolbar">
+                            <div class="tool-group">
+                                <h3>编码转换</h3>
+                                <div class="encoding-controls">
+                                    <select id="input-encoding">
+                                        <option value="UTF-8">UTF-8</option>
+                                        <option value="GBK">GBK</option>
+                                        <option value="GB2312">GB2312</option>
+                                        <option value="BIG5">BIG5</option>
+                                        <option value="ASCII">ASCII</option>
+                                    </select>
+                                    <span class="arrow">→</span>
+                                    <select id="output-encoding">
+                                        <option value="UTF-8">UTF-8</option>
+                                        <option value="GBK">GBK</option>
+                                        <option value="GB2312">GB2312</option>
+                                        <option value="BIG5">BIG5</option>
+                                        <option value="ASCII">ASCII</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="tool-group">
+                                <h3>换行符转换</h3>
+                                <div class="newline-controls">
+                                    <select id="newline-format">
+                                        <option value="CRLF">Windows (CRLF)</option>
+                                        <option value="LF">Unix/Linux (LF)</option>
+                                        <option value="CR">Mac (CR)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="tool-group">
+                                <h3>文件格式转换</h3>
+                                <div class="format-controls">
+                                    <select id="output-format">
+                                        <option value="txt">TXT</option>
+                                        <option value="doc">DOC</option>
+                                        <option value="pdf">PDF</option>
+                                        <option value="rtf">RTF</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="tool-group">
+                                <h3>格式化</h3>
+                                <div class="format-buttons">
+                                    <button id="format-html">HTML格式化</button>
+                                    <button id="format-xml">XML格式化</button>
+                                    <button id="format-json">JSON格式化</button>
+                                    <button id="format-css">CSS格式化</button>
+                                    <button id="format-js">JavaScript格式化</button>
+                                </div>
+                            </div>
+
+                            <div class="tool-group">
+                                <h3>Markdown转换</h3>
+                                <div class="markdown-buttons">
+                                    <button id="md-to-html">转HTML</button>
+                                    <button id="md-preview">预览</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="output-panel">
+                            <div class="panel-header">
+                                <h3>输出</h3>
+                                <div class="output-controls">
+                                    <button id="copy-btn" class="control-btn">复制</button>
+                                    <button id="download-btn" class="control-btn">下载</button>
+                                </div>
+                            </div>
+                            <div id="output-content" class="output-content"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="manual">
+                    <h2>使用说明</h2>
+                    <div class="manual-content">
+                        <h3>编码转换</h3>
+                        <ol>
+                            <li>选择<strong>输入编码</strong>和<strong>输出编码</strong></li>
+                            <li>输入或粘贴需要转换的文本</li>
+                            <li>转换结果会自动显示在右侧</li>
+                        </ol>
+
+                        <h3>换行符转换</h3>
+                        <ol>
+                            <li>选择目标<strong>换行符格式</strong></li>
+                            <li>输入或粘贴文本内容</li>
+                            <li>系统会自动转换所有换行符</li>
+                        </ol>
+
+                        <h3>文件格式转换</h3>
+                        <ol>
+                            <li>选择要转换的<strong>目标格式</strong></li>
+                            <li>输入文本或上传文件</li>
+                            <li>点击<strong>下载</strong>保存转换后的文件</li>
+                        </ol>
+
+                        <h3>格式化功能</h3>
+                        <ol>
+                            <li>选择相应的格式化按钮</li>
+                            <li>系统会自动格式化代码并显示</li>
+                            <li>可以<strong>复制</strong>或<strong>下载</strong>格式化后的内容</li>
+                        </ol>
+
+                        <h3>Markdown转换</h3>
+                        <ol>
+                            <li>输入Markdown格式的文本</li>
+                            <li>点击<strong>转HTML</strong>进行转换</li>
+                            <li>或点击<strong>预览</strong>查看渲染效果</li>
+                        </ol>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>工具箱</h3>
+                    <p>让工作更高效，让生活更简单</p>
+                </div>
+                <div class="footer-bottom">
+                    <p class="copyright">© 2024 工具箱 - 专注于提供高效的在线工具</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prettier/2.8.8/standalone.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prettier/2.8.8/parser-html.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prettier/2.8.8/parser-postcss.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prettier/2.8.8/parser-babel.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

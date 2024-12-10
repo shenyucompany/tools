@@ -1,0 +1,398 @@
+:root {
+    --primary-color: #0066ff;
+    --primary-dark: #0052cc;
+    --success-color: #4CAF50;
+    --success-dark: #45a049;
+    --text-primary: #1a1a1a;
+    --text-secondary: #666666;
+    --background-light: #f8f9fa;
+    --border-radius: 8px;
+    --box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 编辑器部分样式 */
+.editor-section {
+    background: white;
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 40px;
+}
+
+.editor-container {
+    display: grid;
+    grid-template-columns: 1fr 300px 1fr;
+    gap: 20px;
+}
+
+/* 输入输出面板样式 */
+.input-panel,
+.output-panel {
+    display: flex;
+    flex-direction: column;
+    height: 800px;
+    gap: 10px;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    height: 40px;
+}
+
+.panel-header h3 {
+    color: var(--text-primary);
+    font-size: 1.1em;
+    margin: 0;
+}
+
+.input-controls,
+.output-controls {
+    display: flex;
+    gap: 10px;
+}
+
+#input-text {
+    flex: 1;
+    height: 800px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    resize: none;
+    box-sizing: border-box;
+}
+
+.output-content {
+    width: 100%;
+    height: 800px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    background: var(--background-light);
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow: auto;
+    white-space: pre-wrap;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* 自定义滚动条样式 */
+.output-content::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.output-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.output-content::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.output-content::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
+
+/* 添加水平滚动指示器 */
+.output-content::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40px;
+    height: 100%;
+    background: linear-gradient(to right, transparent, var(--background-light) 70%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.output-content.has-overflow::after {
+    opacity: 1;
+}
+
+/* 工具栏样式 */
+.toolbar {
+    background: var(--background-light);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tool-group {
+    background: white;
+    padding: 15px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.tool-group h3 {
+    color: var(--text-primary);
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+/* 编码转换样式 */
+.encoding-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.arrow {
+    color: var(--text-secondary);
+    font-weight: bold;
+}
+
+/* 按钮和选择器样式 */
+button,
+select,
+.control-btn {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    background: white;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 14px;
+}
+
+button:hover,
+.control-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+select {
+    width: 100%;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 15px;
+    padding-right: 35px;
+}
+
+/* 格式化和Markdown按钮组样式 */
+.format-buttons,
+.markdown-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Markdown预览样式 */
+.markdown-preview {
+    padding: 20px;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.markdown-preview img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 使用说明样式 */
+.manual {
+    background: white;
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.manual h2 {
+    color: var(--text-primary);
+    margin-bottom: 30px;
+    font-size: 1.5em;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.manual h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 3px;
+}
+
+.manual h3 {
+    color: var(--text-primary);
+    margin: 25px 0 15px;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 15px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.manual h3:first-child {
+    margin-top: 0;
+}
+
+.manual-content {
+    padding: 25px;
+    background: var(--background-light);
+    border-radius: var(--border-radius);
+    border: 1px solid #eee;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.manual ol {
+    padding-left: 25px;
+    counter-reset: item;
+    list-style: none;
+    margin-bottom: 30px;
+    display: grid;
+    gap: 15px;
+}
+
+.manual ol:last-child {
+    margin-bottom: 0;
+}
+
+.manual li {
+    color: var(--text-secondary);
+    position: relative;
+    padding-left: 15px;
+    line-height: 1.6;
+    counter-increment: item;
+    background: white;
+    padding: 15px 20px 15px 35px;
+    border-radius: var(--border-radius);
+    border: 1px solid #eee;
+    transition: all 0.3s ease;
+}
+
+.manual li:hover {
+    transform: translateX(5px);
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.manual li:before {
+    content: counter(item);
+    position: absolute;
+    left: -12px;
+    width: 24px;
+    height: 24px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+    font-weight: 500;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.manual li:last-child {
+    margin-bottom: 0;
+}
+
+.manual strong {
+    color: var(--primary-color);
+    font-weight: 500;
+    padding: 2px 6px;
+    background: rgba(0, 102, 255, 0.1);
+    border-radius: 4px;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+    .editor-container {
+        grid-template-columns: 1fr;
+    }
+
+    .toolbar {
+        order: -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .editor-section {
+        padding: 20px;
+    }
+
+    .panel-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .input-controls,
+    .output-controls {
+        width: 100%;
+    }
+
+    .control-btn {
+        flex: 1;
+        text-align: center;
+    }
+
+    .encoding-controls {
+        flex-direction: column;
+    }
+
+    .manual {
+        padding: 20px;
+    }
+
+    .manual-content {
+        padding: 20px;
+    }
+
+    .manual h2 {
+        margin-bottom: 20px;
+        font-size: 1.3em;
+    }
+
+    .manual h3 {
+        margin: 20px 0 12px;
+        font-size: 1.1em;
+    }
+
+    .manual ol {
+        margin-bottom: 20px;
+        gap: 12px;
+    }
+
+    .manual li {
+        font-size: 0.95em;
+        padding: 12px 15px 12px 30px;
+    }
+
+    .manual li:hover {
+        transform: none;
+    }
+} 
