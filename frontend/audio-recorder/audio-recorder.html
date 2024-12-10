@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>录音工具 | 工具箱</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="../index.html" class="nav-brand">
+                    <h2>工具箱</h2>
+                </a>
+                <div class="nav-links">
+                    <a href="../index.html">所有工具</a>
+                    <a href="#" class="active">录音工具</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <header>
+                <h1>录音工具</h1>
+                <p class="subtitle">在线录音、编辑和格式转换</p>
+            </header>
+
+            <main>
+                <section class="recorder-section">
+                    <div class="recorder-controls">
+                        <button id="record-btn" class="control-btn record">
+                            <svg viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="8"/>
+                            </svg>
+                            <span>开始录音</span>
+                        </button>
+                        <button id="pause-btn" class="control-btn pause" hidden>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                            </svg>
+                            <span>暂停</span>
+                        </button>
+                        <button id="resume-btn" class="control-btn resume" hidden>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                            <span>继续</span>
+                        </button>
+                        <button id="stop-btn" class="control-btn stop" hidden>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M6 6h12v12H6z"/>
+                            </svg>
+                            <span>停止</span>
+                        </button>
+                    </div>
+                    <div class="recording-info">
+                        <div class="timer">00:00</div>
+                        <div class="level-meter">
+                            <div class="level-bar"></div>
+                        </div>
+                    </div>
+                    <div class="format-selector">
+                        <label>录音格式：</label>
+                        <select id="format-select">
+                            <option value="wav">WAV</option>
+                            <option value="mp3">MP3</option>
+                            <option value="ogg">OGG</option>
+                        </select>
+                    </div>
+                </section>
+
+                <section class="recordings-list">
+                    <h2>录音列表</h2>
+                    <div id="recordings" class="recordings-container"></div>
+                </section>
+
+                <section class="editor-section" hidden>
+                    <h2>录音编辑</h2>
+                    <div id="waveform"></div>
+                    <div class="editor-controls">
+                        <div class="time-info">
+                            <span id="current-time">00:00</span> / 
+                            <span id="duration">00:00</span>
+                        </div>
+                        <div class="edit-controls">
+                            <button id="trim-btn" class="edit-btn">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/>
+                                    <path d="M14 17h2v-3h3v-2h-3V9h-2v3H9v2h3z"/>
+                                </svg>
+                                <span>裁剪</span>
+                            </button>
+                            <button id="effects-btn" class="edit-btn">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                                </svg>
+                                <span>效果</span>
+                            </button>
+                            <button id="convert-btn" class="edit-btn">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M19 8l-4 4h3c0 3.31-2.69 6-6 6-1.01 0-1.97-.25-2.8-.7l-1.46 1.46C8.97 19.54 10.43 20 12 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.46-1.46C15.03 4.46 13.57 4 12 4c-4.42 0-8 3.58-8 8H1l4 4 4-4H6z"/>
+                                </svg>
+                                <span>转换</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="manual">
+                    <h2>使用说明</h2>
+                    <div class="manual-content">
+                        <ol>
+                            <li>点击<strong>开始录音</strong>按钮开始录制</li>
+                            <li>可以随时<strong>暂停</strong>或<strong>继续</strong>录音</li>
+                            <li>点击<strong>停止</strong>按钮完成录制</li>
+                            <li>在录音列表中可以<strong>播放</strong>、<strong>编辑</strong>或<strong>下载</strong>录音</li>
+                            <li>使用编辑工具可以<strong>裁剪</strong>、添加<strong>效果</strong>或<strong>转换格式</strong></li>
+                        </ol>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>工具箱</h3>
+                    <p>让工作更高效，让生活更简单</p>
+                </div>
+                <div class="footer-bottom">
+                    <p class="copyright">© 2024 工具箱 - 专注于提供高效的在线工具</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="https://unpkg.com/wavesurfer.js@7"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
