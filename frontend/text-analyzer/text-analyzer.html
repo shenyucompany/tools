@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文本分析工具 | 工具箱</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="../index.html" class="nav-brand">
+                    <h2>工具箱</h2>
+                </a>
+                <div class="nav-links">
+                    <a href="../index.html">所有工具</a>
+                    <a href="#" class="active">文本分析</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <header>
+                <h1>文本分析工具</h1>
+                <p class="subtitle">字数统计、词频分析、文本特征等</p>
+            </header>
+
+            <main>
+                <section class="editor-section">
+                    <div class="editor-container">
+                        <div class="input-panel">
+                            <div class="panel-header">
+                                <h3>输入文本</h3>
+                                <div class="input-controls">
+                                    <button id="paste-btn" class="control-btn">粘贴</button>
+                                    <button id="clear-btn" class="control-btn">清空</button>
+                                    <input type="file" id="file-input" accept=".txt" hidden>
+                                    <label for="file-input" class="control-btn">打开文件</label>
+                                </div>
+                            </div>
+                            <textarea id="input-text" placeholder="在此输入或粘贴文本..."></textarea>
+                        </div>
+
+                        <div class="analysis-panel">
+                            <div class="basic-stats">
+                                <h3>基础统计</h3>
+                                <div class="stats-grid">
+                                    <div class="stat-item">
+                                        <span class="stat-label">总字符数</span>
+                                        <span id="total-chars">0</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">不计空格</span>
+                                        <span id="chars-no-spaces">0</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">单词数</span>
+                                        <span id="word-count">0</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">行数</span>
+                                        <span id="line-count">0</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">段落数</span>
+                                        <span id="paragraph-count">0</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">句子数</span>
+                                        <span id="sentence-count">0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="language-stats">
+                                <h3>语言分析</h3>
+                                <div class="stats-grid">
+                                    <div class="stat-item">
+                                        <span class="stat-label">中文字数</span>
+                                        <span id="chinese-chars">0</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">英文单词</span>
+                                        <span id="english-words">0</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">数字</span>
+                                        <span id="number-count">0</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">标点符号</span>
+                                        <span id="punctuation-count">0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="word-frequency">
+                                <h3>词频统计</h3>
+                                <div class="frequency-controls">
+                                    <select id="frequency-type">
+                                        <option value="all">全部词语</option>
+                                        <option value="chinese">中文词语</option>
+                                        <option value="english">英文单词</option>
+                                    </select>
+                                    <input type="number" id="top-n" value="10" min="1" max="100">
+                                    <button id="update-frequency">更新</button>
+                                </div>
+                                <div id="frequency-list" class="frequency-list"></div>
+                            </div>
+
+                            <div class="text-features">
+                                <h3>文本特征</h3>
+                                <div class="feature-list">
+                                    <div class="feature-item">
+                                        <span class="feature-label">平均词长</span>
+                                        <span id="avg-word-length">0</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <span class="feature-label">平均句长</span>
+                                        <span id="avg-sentence-length">0</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <span class="feature-label">词汇丰富度</span>
+                                        <span id="lexical-density">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="manual">
+                    <h2>使用说明</h2>
+                    <div class="manual-content">
+                        <h3>基础统计</h3>
+                        <ol>
+                            <li>输入或粘贴文本后自动统计<strong>字符数</strong>、<strong>单词数</strong>等基本信息</li>
+                            <li>可以通过<strong>打开文件</strong>按钮导入TXT文本文件</li>
+                        </ol>
+
+                        <h3>语言分析</h3>
+                        <ol>
+                            <li>自动识别并统计<strong>中文字数</strong>和<strong>英文单词数</strong></li>
+                            <li>分别计算<strong>数字</strong>和<strong>标点符号</strong>的数量</li>
+                        </ol>
+
+                        <h3>词频统计</h3>
+                        <ol>
+                            <li>选择要统计的<strong>词语类型</strong></li>
+                            <li>设置要显示的<strong>top N</strong>个高频词</li>
+                            <li>点击<strong>更新</strong>查看词频统计结果</li>
+                        </ol>
+
+                        <h3>文本特征</h3>
+                        <ol>
+                            <li>计算<strong>平均词长</strong>和<strong>平均句长</strong></li>
+                            <li>分析文本的<strong>词汇丰富度</strong></li>
+                        </ol>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>工具箱</h3>
+                    <p>让工作更高效，让生活更简单</p>
+                </div>
+                <div class="footer-bottom">
+                    <p class="copyright">© 2024 工具箱 - 专注于提供高效的在线工具</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
