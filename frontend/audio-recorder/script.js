@@ -471,13 +471,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
 
-            // 添加滑块值更新
+            // 更新滑块值显示
             dialog.querySelectorAll('input[type="range"]').forEach(slider => {
                 slider.addEventListener('input', (e) => {
                     const value = e.target.value;
                     e.target.nextElementSibling.textContent = 
                         e.target.id === 'filter-cutoff' ? `${value} Hz` :
                         e.target.id === 'echo-delay' ? `${value}s` :
+                        e.target.id === 'distortion-gain' ? `${value}.0` :
                         value;
                 });
             });
@@ -486,10 +487,13 @@ document.addEventListener('DOMContentLoaded', function() {
             let previewWavesurfer = null;
             const previewBtn = dialog.querySelector('#preview-btn');
             previewBtn.addEventListener('click', async () => {
-                const effects = getEffectsConfig();
                 try {
-                    const processedBlob = await applyEffects(blob, effects);
-                    
+                    previewBtn.disabled = true;
+                    previewBtn.textContent = '处理中...';
+
+                    const effects = getCurrentEffects(dialog);
+                    const processedBlob = await applyAudioEffects(blob, effects);
+
                     if (previewWavesurfer) {
                         previewWavesurfer.destroy();
                     }
@@ -506,85 +510,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 } catch (error) {
                     console.error('Preview error:', error);
                     alert('预览失败：' + error.message);
+                } finally {
+                    previewBtn.disabled = false;
+                    previewBtn.textContent = '预览效果';
                 }
             });
-
-            // 获取效果配置
-            function getEffectsConfig() {
-                const effects = [];
-                const activePanel = dialog.querySelector('.panel.active');
-                const effectType = activePanel.id.replace('-panel', '');
-
-                switch (effectType) {
-                    case 'reverb':
-                        effects.push({
-                            type: 'reverb',
-                            params: {
-                                roomSize: parseFloat(dialog.querySelector('#room-size').value),
-                                damping: parseFloat(dialog.querySelector('#damping').value)
-                            }
-                        });
-                        break;
-                    case 'stereo':
-                        effects.push({
-                            type: 'stereo',
-                            params: {
-                                mode: dialog.querySelector('#stereo-mode').value
-                            }
-                        });
-                        break;
-                    case 'echo':
-                        effects.push({
-                            type: 'echo',
-                            params: {
-                                delay: parseFloat(dialog.querySelector('#echo-delay').value),
-                                decay: parseFloat(dialog.querySelector('#echo-decay').value)
-                            }
-                        });
-                        break;
-                    case 'distortion':
-                        effects.push({
-                            type: 'distortion',
-                            params: {
-                                gain: parseFloat(dialog.querySelector('#distortion-gain').value),
-                                threshold: parseFloat(dialog.querySelector('#distortion-threshold').value)
-                            }
-                        });
-                        break;
-                    case 'filter':
-                        effects.push({
-                            type: 'filter',
-                            params: {
-                                type: dialog.querySelector('#filter-type').value,
-                                cutoff: parseFloat(dialog.querySelector('#filter-cutoff').value),
-                                order: parseInt(dialog.querySelector('#filter-order').value)
-                            }
-                        });
-                        break;
-                }
-
-                return effects;
-            }
-
-            // 应用效果
-            async function applyEffects(audioBlob, effects) {
-                const formData = new FormData();
-                formData.append('file', new File([audioBlob], 'audio.wav'));
-                formData.append('effects', JSON.stringify(effects));
-                formData.append('format', 'wav');
-
-                const response = await fetch('http://localhost:8000/api/audio/effects', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.detail || '应用效果失败');
-                }
-
-                return await response.blob();
-            }
 
             // 取消按钮
             dialog.querySelector('.cancel-btn').onclick = () => {
@@ -597,8 +527,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // 应用按钮
             dialog.querySelector('.apply-btn').onclick = async () => {
                 try {
-                    const effects = getEffectsConfig();
-                    const processedBlob = await applyEffects(blob, effects);
+                    const effects = getCurrentEffects(dialog);
+                    const processedBlob = await applyAudioEffects(blob, effects);
                     wavesurfer.loadBlob(processedBlob);
                     document.body.removeChild(dialog);
                 } catch (error) {
@@ -724,6 +654,88 @@ document.addEventListener('DOMContentLoaded', function() {
     function writeString(view, offset, string) {
         for (let i = 0; i < string.length; i++) {
             view.setUint8(offset + i, string.charCodeAt(i));
+        }
+    }
+
+    // 获取当前效果配置
+    function getCurrentEffects(dialog) {
+        const activePanel = dialog.querySelector('.panel.active');
+        const effectType = activePanel.id.replace('-panel', '');
+        const effects = [];
+
+        switch (effectType) {
+            case 'reverb':
+                effects.push({
+                    type: 'reverb',
+                    params: {
+                        roomSize: parseFloat(dialog.querySelector('#room-size').value),
+                        damping: parseFloat(dialog.querySelector('#damping').value)
+                    }
+                });
+                break;
+            case 'stereo':
+                effects.push({
+                    type: 'stereo',
+                    params: {
+                        mode: dialog.querySelector('#stereo-mode').value
+                    }
+                });
+                break;
+            case 'echo':
+                effects.push({
+                    type: 'echo',
+                    params: {
+                        delay: parseFloat(dialog.querySelector('#echo-delay').value),
+                        decay: parseFloat(dialog.querySelector('#echo-decay').value)
+                    }
+                });
+                break;
+            case 'distortion':
+                effects.push({
+                    type: 'distortion',
+                    params: {
+                        gain: parseFloat(dialog.querySelector('#distortion-gain').value),
+                        threshold: parseFloat(dialog.querySelector('#distortion-threshold').value)
+                    }
+                });
+                break;
+            case 'filter':
+                effects.push({
+                    type: 'filter',
+                    params: {
+                        type: dialog.querySelector('#filter-type').value,
+                        cutoff: parseFloat(dialog.querySelector('#filter-cutoff').value),
+                        order: parseInt(dialog.querySelector('#filter-order').value)
+                    }
+                });
+                break;
+        }
+
+        return effects;
+    }
+
+    // 应用音频效果
+    async function applyAudioEffects(blob, effects) {
+        const formData = new FormData();
+        formData.append('file', new File([blob], 'audio.wav'));
+        formData.append('effects', JSON.stringify(effects));
+        formData.append('format', 'wav');
+
+        try {
+            const response = await fetch('http://localhost:8000/api/audio/effects', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.detail || '处理失败');
+            }
+
+            return await response.blob();
+        } catch (error) {
+            console.error('Error applying effects:', error);
+            throw error;
         }
     }
 
