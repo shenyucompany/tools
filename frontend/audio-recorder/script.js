@@ -172,16 +172,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // 添加录音到列表
-    function addRecordingToList(name, blob, format) {
+    async function addRecordingToList(name, blob, format) {
         const url = URL.createObjectURL(blob);
-        const duration = '00:00'; // TODO: 获取实际时长
+        
+        // 获取音频时长
+        const duration = await getAudioDuration(blob);
+        const durationStr = formatTime(duration);
 
         const recordingItem = document.createElement('div');
         recordingItem.className = 'recording-item';
         recordingItem.innerHTML = `
             <div class="recording-info">
                 <div class="recording-name">${name}</div>
-                <div class="recording-duration">${duration}</div>
+                <div class="recording-duration">${durationStr}</div>
             </div>
             <div class="recording-actions">
                 <button class="action-btn play" title="播放">
@@ -228,15 +231,27 @@ document.addEventListener('DOMContentLoaded', function() {
         recordingsList.appendChild(recordingItem);
     }
 
+    // 获取音频时长
+    function getAudioDuration(blob) {
+        return new Promise((resolve) => {
+            const audio = new Audio();
+            audio.src = URL.createObjectURL(blob);
+            audio.addEventListener('loadedmetadata', () => {
+                URL.revokeObjectURL(audio.src);
+                resolve(audio.duration);
+            });
+        });
+    }
+
     // 初始化编辑器
     function initEditor(blob) {
         editorSection.hidden = false;
 
-        // 初始化波形图
         if (wavesurfer) {
             wavesurfer.destroy();
         }
 
+        // 创建 WaveSurfer 实例
         wavesurfer = WaveSurfer.create({
             container: waveform,
             waveColor: '#A8DBA8',
@@ -244,30 +259,243 @@ document.addEventListener('DOMContentLoaded', function() {
             cursorColor: '#0066ff',
             height: 128,
             normalize: true,
-            minimap: true
+            plugins: [
+                WaveSurfer.regions.create({
+                    dragSelection: {
+                        slop: 5
+                    },
+                    color: 'rgba(0, 102, 255, 0.1)'
+                })
+            ]
         });
 
         wavesurfer.loadBlob(blob);
 
+        // 添加播放控制
+        let isPlaying = false;
+        waveform.addEventListener('click', () => {
+            if (isPlaying) {
+                wavesurfer.pause();
+            } else {
+                wavesurfer.play();
+            }
+            isPlaying = !isPlaying;
+        });
+
         wavesurfer.on('ready', () => {
             duration.textContent = formatTime(wavesurfer.getDuration());
+            // 创建默认选区
+            wavesurfer.regions.add({
+                id: 'default-region',
+                start: 0,
+                end: wavesurfer.getDuration(),
+                color: 'rgba(0, 102, 255, 0.1)',
+                drag: true,
+                resize: true
+            });
         });
 
         wavesurfer.on('audioprocess', () => {
             currentTime.textContent = formatTime(wavesurfer.getCurrentTime());
         });
 
-        // 编辑按钮事件
-        document.getElementById('trim-btn').onclick = () => {
-            // TODO: 实现裁剪功能
+        // 裁剪功能
+        document.getElementById('trim-btn').onclick = async () => {
+            const region = wavesurfer.regions.list['default-region'];
+            if (!region) {
+                alert('请先选择要裁剪的区域');
+                return;
+            }
+
+            try {
+                // 创建新的 AudioContext
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // 解码音频数据
+                const audioData = await blob.arrayBuffer();
+                const audioBuffer = await audioContext.decodeAudioData(audioData);
+                
+                // 计算裁剪位置
+                const startSample = Math.floor(region.start * audioBuffer.sampleRate);
+                const endSample = Math.floor(region.end * audioBuffer.sampleRate);
+                const duration = endSample - startSample;
+                
+                // 创建新的 AudioBuffer
+                const newBuffer = audioContext.createBuffer(
+                    audioBuffer.numberOfChannels,
+                    duration,
+                    audioBuffer.sampleRate
+                );
+                
+                // 复制选中区域的数据
+                for (let channel = 0; channel < audioBuffer.numberOfChannels; channel++) {
+                    const channelData = audioBuffer.getChannelData(channel);
+                    const newChannelData = newBuffer.getChannelData(channel);
+                    for (let i = 0; i < duration; i++) {
+                        newChannelData[i] = channelData[startSample + i];
+                    }
+                }
+                
+                // 将 AudioBuffer 转换为 Blob
+                const offlineContext = new OfflineAudioContext(
+                    audioBuffer.numberOfChannels,
+                    duration,
+                    audioBuffer.sampleRate
+                );
+                const source = offlineContext.createBufferSource();
+                source.buffer = newBuffer;
+                source.connect(offlineContext.destination);
+                source.start();
+                
+                const renderedBuffer = await offlineContext.startRendering();
+                const wavBlob = await audioBufferToWav(renderedBuffer);
+                
+                // 更新波形显示
+                wavesurfer.loadBlob(wavBlob);
+                
+                alert('裁剪成功！');
+            } catch (error) {
+                console.error('Error trimming:', error);
+                alert('裁剪失败：' + error.message);
+            }
         };
 
+        // 效果功能
         document.getElementById('effects-btn').onclick = () => {
-            // TODO: 实现效果功能
+            // 创建效果选择对话框
+            const dialog = document.createElement('div');
+            dialog.className = 'effects-dialog';
+            dialog.innerHTML = `
+                <div class="effects-content">
+                    <h3>音频效果</h3>
+                    <div class="effect-controls">
+                        <div class="effect-group">
+                            <label>音量调整</label>
+                            <input type="range" id="volume-control" min="-20" max="20" value="0" step="1">
+                            <span>0 dB</span>
+                        </div>
+                        <div class="effect-group">
+                            <label>淡入淡出</label>
+                            <div class="fade-controls">
+                                <input type="number" id="fade-in" min="0" max="10" value="0" step="0.1">
+                                <span>秒淡入</span>
+                                <input type="number" id="fade-out" min="0" max="10" value="0" step="0.1">
+                                <span>秒淡出</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dialog-buttons">
+                        <button class="cancel-btn">取消</button>
+                        <button class="apply-btn">应用</button>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(dialog);
+
+            // 添加效果对话框的事件处理
+            const volumeControl = dialog.querySelector('#volume-control');
+            volumeControl.addEventListener('input', (e) => {
+                e.target.nextElementSibling.textContent = `${e.target.value} dB`;
+            });
+
+            dialog.querySelector('.cancel-btn').onclick = () => {
+                document.body.removeChild(dialog);
+            };
+
+            dialog.querySelector('.apply-btn').onclick = async () => {
+                const volume = parseFloat(volumeControl.value);
+                const fadeIn = parseFloat(dialog.querySelector('#fade-in').value);
+                const fadeOut = parseFloat(dialog.querySelector('#fade-out').value);
+
+                const formData = new FormData();
+                formData.append('file', new File([blob], 'audio.wav'));
+                formData.append('volume', volume);
+                formData.append('fade_in', fadeIn);
+                formData.append('fade_out', fadeOut);
+                formData.append('format', 'wav');
+
+                try {
+                    const response = await fetch('http://localhost:8000/api/audio/record/edit', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (!response.ok) {
+                        const error = await response.json();
+                        throw new Error(error.detail || '应用效果失败');
+                    }
+
+                    const newBlob = await response.blob();
+                    wavesurfer.loadBlob(newBlob);
+                    document.body.removeChild(dialog);
+                    alert('效果应用成功！');
+                } catch (error) {
+                    console.error('Error applying effects:', error);
+                    alert('应用效果失败：' + error.message);
+                }
+            };
         };
 
+        // 格式转换功能
         document.getElementById('convert-btn').onclick = () => {
-            // TODO: 实现格式转换功能
+            // 创建格式选择对话框
+            const dialog = document.createElement('div');
+            dialog.className = 'format-dialog';
+            dialog.innerHTML = `
+                <div class="format-content">
+                    <h3>选择输出格式</h3>
+                    <select id="output-format">
+                        <option value="mp3">MP3</option>
+                        <option value="wav">WAV</option>
+                        <option value="ogg">OGG</option>
+                    </select>
+                    <div class="dialog-buttons">
+                        <button class="cancel-btn">取消</button>
+                        <button class="convert-btn">转换</button>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(dialog);
+
+            dialog.querySelector('.cancel-btn').onclick = () => {
+                document.body.removeChild(dialog);
+            };
+
+            dialog.querySelector('.convert-btn').onclick = async () => {
+                const format = dialog.querySelector('#output-format').value;
+                const formData = new FormData();
+                formData.append('file', new File([blob], 'audio.wav'));
+                formData.append('format', format);
+
+                try {
+                    const response = await fetch('http://localhost:8000/api/audio/record/edit', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (!response.ok) {
+                        const error = await response.json();
+                        throw new Error(error.detail || '格式转换失败');
+                    }
+
+                    const newBlob = await response.blob();
+                    const url = URL.createObjectURL(newBlob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `converted_audio.${format}`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    document.body.removeChild(dialog);
+                    alert('格式转换成功！');
+                } catch (error) {
+                    console.error('Error converting format:', error);
+                    alert('格式转换失败：' + error.message);
+                }
+            };
         };
     }
 
@@ -276,6 +504,56 @@ document.addEventListener('DOMContentLoaded', function() {
         const minutes = Math.floor(seconds / 60);
         seconds = Math.floor(seconds % 60);
         return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    // 添加 AudioBuffer 转 WAV 的辅助函数
+    function audioBufferToWav(buffer) {
+        const numberOfChannels = buffer.numberOfChannels;
+        const length = buffer.length * numberOfChannels * 2;
+        const outputBuffer = new ArrayBuffer(44 + length);
+        const view = new DataView(outputBuffer);
+        const channels = [];
+        let offset = 0;
+        let pos = 0;
+
+        // 写入WAV文件头
+        writeString(view, 0, 'RIFF');
+        view.setUint32(4, 36 + length, true);
+        writeString(view, 8, 'WAVE');
+        writeString(view, 12, 'fmt ');
+        view.setUint32(16, 16, true);
+        view.setUint16(20, 1, true);
+        view.setUint16(22, numberOfChannels, true);
+        view.setUint32(24, buffer.sampleRate, true);
+        view.setUint32(28, buffer.sampleRate * numberOfChannels * 2, true);
+        view.setUint16(32, numberOfChannels * 2, true);
+        view.setUint16(34, 16, true);
+        writeString(view, 36, 'data');
+        view.setUint32(40, length, true);
+
+        // 写入采样数据
+        for (let i = 0; i < buffer.numberOfChannels; i++) {
+            channels.push(buffer.getChannelData(i));
+        }
+
+        offset = 44;
+        while (pos < buffer.length) {
+            for (let i = 0; i < numberOfChannels; i++) {
+                let sample = Math.max(-1, Math.min(1, channels[i][pos]));
+                sample = sample < 0 ? sample * 0x8000 : sample * 0x7FFF;
+                view.setInt16(offset, sample, true);
+                offset += 2;
+            }
+            pos++;
+        }
+
+        return new Blob([outputBuffer], { type: 'audio/wav' });
+    }
+
+    function writeString(view, offset, string) {
+        for (let i = 0; i < string.length; i++) {
+            view.setUint8(offset + i, string.charCodeAt(i));
+        }
     }
 
     // 事件监听器
