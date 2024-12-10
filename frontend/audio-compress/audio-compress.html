@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音频压缩工具 | 工具箱</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="../index.html" class="nav-brand">
+                    <h2>工具箱</h2>
+                </a>
+                <div class="nav-links">
+                    <a href="../index.html">所有工具</a>
+                    <a href="#" class="active">音频压缩</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <header>
+                <h1>音频压缩工具</h1>
+                <p class="subtitle">压缩音频文件大小，保持音质</p>
+            </header>
+
+            <main>
+                <section class="upload-section">
+                    <div class="upload-area">
+                        <input type="file" id="file-input" accept="audio/*" hidden>
+                        <label for="file-input">
+                            <svg class="upload-icon" viewBox="0 0 24 24">
+                                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                            </svg>
+                            <span>选择音频文件</span>
+                        </label>
+                    </div>
+                    <div id="file-list" class="file-list"></div>
+                    <div class="settings-panel">
+                        <div class="setting-group">
+                            <label for="quality">压缩质量：</label>
+                            <div class="quality-slider">
+                                <input type="range" id="quality" min="32" max="320" value="128" step="32">
+                                <span id="quality-value">128 kbps</span>
+                            </div>
+                        </div>
+                        <div class="setting-group">
+                            <label for="output-format">输出格式：</label>
+                            <select id="output-format" class="format-select">
+                                <option value="mp3">MP3</option>
+                                <option value="ogg">OGG</option>
+                                <option value="m4a">M4A</option>
+                            </select>
+                        </div>
+                        <button id="compress-btn" class="primary-button" disabled>
+                            <span class="button-text">压缩音频</span>
+                        </button>
+                    </div>
+                    <div id="progress" class="progress"></div>
+                </section>
+
+                <section class="manual">
+                    <h2>使用说明</h2>
+                    <div class="manual-content">
+                        <ol>
+                            <li>点击<strong>选择音频文件</strong>上传需要压缩的音频</li>
+                            <li>调整<strong>压缩质量</strong>，数值越小文件越小</li>
+                            <li>选择压缩后的<strong>输出格式</strong></li>
+                            <li>点击<strong>压缩音频</strong>按钮，等待处理完成后下载</li>
+                        </ol>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>工具箱</h3>
+                    <p>让工作更高效，让生活更简单</p>
+                </div>
+                <div class="footer-bottom">
+                    <p class="copyright">© 2024 工具箱 - 专注于提供高效的在线工具</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

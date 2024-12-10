@@ -1,0 +1,323 @@
+:root {
+    --primary-color: #0066ff;
+    --primary-dark: #0052cc;
+    --success-color: #4CAF50;
+    --success-dark: #45a049;
+    --text-primary: #1a1a1a;
+    --text-secondary: #666666;
+    --background-light: #f8f9fa;
+    --border-radius: 8px;
+    --box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 上传区域样式 */
+.upload-section {
+    background: white;
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.upload-area {
+    border: 2px dashed #ddd;
+    border-radius: var(--border-radius);
+    padding: 40px 20px;
+    margin-bottom: 20px;
+    background-color: var(--background-light);
+    transition: all 0.3s ease;
+}
+
+.upload-area:hover {
+    border-color: var(--primary-color);
+    background-color: #f0f7ff;
+}
+
+/* 上传按钮样式 */
+label {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 20px 40px;
+    background-color: white;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    transition: all 0.3s;
+    min-width: 240px;
+}
+
+label:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+label:hover .upload-icon {
+    fill: white;
+}
+
+.upload-icon {
+    width: 48px;
+    height: 48px;
+    fill: var(--primary-color);
+    margin-bottom: 15px;
+    transition: fill 0.3s;
+}
+
+/* 文件列表样式 */
+.file-list {
+    margin: 20px auto;
+    max-width: 600px;
+    background: white;
+    border: 1px solid #eee;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    background: white;
+    transition: background-color 0.3s;
+}
+
+.file-item:hover {
+    background-color: var(--background-light);
+}
+
+.file-item:last-child {
+    border-bottom: none;
+}
+
+.file-name {
+    flex: 1;
+    margin: 0 15px;
+    font-weight: 500;
+    color: var(--text-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.file-size {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    min-width: 80px;
+    text-align: right;
+}
+
+/* 设置面板样式 */
+.settings-panel {
+    background: var(--background-light);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    margin: 30px auto;
+    max-width: 600px;
+}
+
+.setting-group {
+    margin-bottom: 25px;
+}
+
+.setting-group label {
+    display: block;
+    text-align: left;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+    font-weight: 500;
+    background: none;
+    border: none;
+    padding: 0;
+    min-width: auto;
+}
+
+/* 质量滑块样式 */
+.quality-slider {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+input[type="range"] {
+    flex: 1;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: #ddd;
+    border-radius: 3px;
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    background: var(--primary-dark);
+}
+
+#quality-value {
+    min-width: 80px;
+    color: var(--text-secondary);
+    font-size: 0.9em;
+}
+
+.format-select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1em;
+    color: var(--text-primary);
+    background-color: white;
+    transition: border-color 0.3s;
+}
+
+.format-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* 按钮样式 */
+.primary-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 15px 40px;
+    font-size: 1.1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.primary-button:hover:not(:disabled) {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.primary-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* 进度和消息样式 */
+.processing-message,
+.success-message,
+.error-message {
+    margin: 20px 0;
+    padding: 15px 20px;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    text-align: center;
+}
+
+.processing-message {
+    background-color: #e3f2fd;
+    color: var(--primary-color);
+    border: 1px solid #bbdefb;
+}
+
+.success-message {
+    background-color: #e8f5e9;
+    color: var(--success-color);
+    border: 1px solid #c8e6c9;
+}
+
+.error-message {
+    background-color: #ffebee;
+    color: #d32f2f;
+    border: 1px solid #ffcdd2;
+}
+
+/* 使用说明样式 */
+.manual {
+    background: white;
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 40px;
+}
+
+.manual h2 {
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.manual-content {
+    padding: 25px;
+    background: var(--background-light);
+    border-radius: var(--border-radius);
+    border: 1px solid #eee;
+}
+
+.manual ol {
+    padding-left: 25px;
+    counter-reset: item;
+    list-style: none;
+}
+
+.manual li {
+    margin-bottom: 20px;
+    color: var(--text-secondary);
+    position: relative;
+    padding-left: 15px;
+    line-height: 1.6;
+    counter-increment: item;
+}
+
+.manual li:before {
+    content: counter(item);
+    position: absolute;
+    left: -25px;
+    width: 24px;
+    height: 24px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.manual li:last-child {
+    margin-bottom: 0;
+}
+
+.manual strong {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .upload-section,
+    .settings-panel,
+    .manual {
+        padding: 20px;
+    }
+
+    label {
+        padding: 15px 30px;
+        min-width: 200px;
+    }
+} 
