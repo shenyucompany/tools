@@ -11,6 +11,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const transcriptionResult = document.getElementById('transcription-result');
     const copyTextBtn = document.getElementById('copy-text-btn');
 
+    // 文字转语音部分
+    const textInput = document.getElementById('text-input');
+    const ttsLanguage = document.getElementById('tts-language');
+    const speechSpeed = document.getElementById('speech-speed');
+    const speedValue = document.getElementById('speed-value');
+    const synthesizeBtn = document.getElementById('synthesize-btn');
+    const audioPreview = document.querySelector('.audio-preview');
+    const audioPlayer = document.getElementById('audio-player');
+    const downloadAudioBtn = document.getElementById('download-audio-btn');
+
     // 添加文件预览区域
     const videoPreviewArea = document.createElement('div');
     videoPreviewArea.className = 'file-preview';
