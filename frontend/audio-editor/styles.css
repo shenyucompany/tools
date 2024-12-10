@@ -136,28 +136,63 @@ label:hover .upload-icon {
     min-width: auto;
 }
 
-/* 滑块样式 */
+/* 水平滑块容器样式 */
 .volume-slider,
-.fade-slider {
+.noise-slider,
+.fade-slider,
+.speed-slider,
+.pitch-slider {
     display: flex;
     align-items: center;
     gap: 15px;
+    width: 100%;
 }
 
-input[type="range"] {
+/* 水平滑块样式 */
+.volume-slider input[type="range"],
+.noise-slider input[type="range"],
+.fade-slider input[type="range"],
+.speed-slider input[type="range"],
+.pitch-slider input[type="range"] {
     flex: 1;
     -webkit-appearance: none;
-    width: 100%;
     height: 6px;
     background: #ddd;
     border-radius: 3px;
     outline: none;
+    width: calc(100% - 65px);
 }
 
+/* 滑块数值显示样式 */
+.volume-slider span,
+.noise-slider span,
+.fade-slider span,
+.speed-slider span,
+.pitch-slider span {
+    min-width: 65px;
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    text-align: right;
+    font-family: monospace;
+}
+
+/* 垂直滑块样式 */
+.eq-group input[type="range"] {
+    writing-mode: bt-lr;
+    -webkit-appearance: slider-vertical;
+    width: 6px;
+    height: 120px;
+    padding: 0;
+    margin: 0;
+    background: #ddd;
+    border-radius: 3px;
+}
+
+/* 滑块拇指样式 */
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     background: var(--primary-color);
     border-radius: 50%;
     cursor: pointer;
@@ -166,6 +201,22 @@ input[type="range"]::-webkit-slider-thumb {
 
 input[type="range"]::-webkit-slider-thumb:hover {
     background: var(--primary-dark);
+}
+
+/* Firefox 垂直滑块支持 */
+.eq-group input[type="range"] {
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical; /* WebKit */
+    width: 6px;
+    height: 120px;
+}
+
+@-moz-document url-prefix() {
+    .eq-group input[type="range"] {
+        transform: rotate(270deg);
+        width: 120px;
+        height: 6px;
+    }
 }
 
 #volume-value,
@@ -320,5 +371,79 @@ input[type="range"]::-webkit-slider-thumb:hover {
     label {
         padding: 15px 30px;
         min-width: 200px;
+    }
+}
+
+/* 均衡器部分样式 */
+.equalizer-section {
+    margin: 30px 0;
+    padding: 25px;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.equalizer-section h3 {
+    color: var(--text-primary);
+    margin-bottom: 25px;
+    font-size: 1.1em;
+    text-align: center;
+    font-weight: 500;
+}
+
+.eq-sliders {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px 0;
+    background: var(--background-light);
+    border-radius: var(--border-radius);
+}
+
+.eq-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 60px;
+}
+
+.eq-group label {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    font-weight: 500;
+    margin: 0;
+    background: none;
+    border: none;
+    padding: 0;
+    min-width: auto;
+}
+
+.eq-group span {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    min-width: 45px;
+    text-align: center;
+    font-family: monospace;
+}
+
+/* 响应式设计补充 */
+@media (max-width: 768px) {
+    .equalizer-section {
+        padding: 20px;
+    }
+
+    .eq-sliders {
+        gap: 30px;
+        padding: 15px 0;
+    }
+
+    .eq-group {
+        width: 50px;
+        gap: 10px;
+    }
+
+    input[type="range"][orient="vertical"] {
+        height: 100px;
     }
 } 

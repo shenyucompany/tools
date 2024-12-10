@@ -10,6 +10,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const fadeOutSlider = document.getElementById('fade-out');
     const fadeOutValue = document.getElementById('fade-out-value');
     const normalizeCheckbox = document.getElementById('normalize');
+    const speedSlider = document.getElementById('speed');
+    const speedValue = document.getElementById('speed-value');
+    const pitchSlider = document.getElementById('pitch');
+    const pitchValue = document.getElementById('pitch-value');
+    const bassSlider = document.getElementById('bass');
+    const bassValue = document.getElementById('bass-value');
+    const midSlider = document.getElementById('mid');
+    const midValue = document.getElementById('mid-value');
+    const trebleSlider = document.getElementById('treble');
+    const trebleValue = document.getElementById('treble-value');
+    const noiseReduceSlider = document.getElementById('noise-reduce');
+    const noiseValue = document.getElementById('noise-value');
     let currentFile = null;
 
     // 更新滑块值显示
@@ -23,6 +35,42 @@ document.addEventListener('DOMContentLoaded', function() {
 
     fadeOutSlider.addEventListener('input', function() {
         fadeOutValue.textContent = `${this.value} 秒`;
+    });
+
+    // 更新速度显示
+    speedSlider.addEventListener('input', function() {
+        speedValue.textContent = `${this.value}x`;
+    });
+
+    // 更新音调显示
+    pitchSlider.addEventListener('input', function() {
+        const value = parseInt(this.value);
+        const sign = value > 0 ? '+' : '';
+        pitchValue.textContent = `${sign}${value} 半音`;
+    });
+
+    // 更新均衡器显示
+    bassSlider.addEventListener('input', function() {
+        const value = parseInt(this.value);
+        const sign = value > 0 ? '+' : '';
+        bassValue.textContent = `${sign}${value} dB`;
+    });
+
+    midSlider.addEventListener('input', function() {
+        const value = parseInt(this.value);
+        const sign = value > 0 ? '+' : '';
+        midValue.textContent = `${sign}${value} dB`;
+    });
+
+    trebleSlider.addEventListener('input', function() {
+        const value = parseInt(this.value);
+        const sign = value > 0 ? '+' : '';
+        trebleValue.textContent = `${sign}${value} dB`;
+    });
+
+    // 添加降噪滑块的事件监听
+    noiseReduceSlider.addEventListener('input', function() {
+        noiseValue.textContent = `${this.value}%`;
     });
 
     // 文件选择处理
@@ -52,9 +100,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData();
         formData.append('file', currentFile);
         formData.append('volume', volumeSlider.value);
+        formData.append('noise_reduce', noiseReduceSlider.value / 100); // 转换为0-1的值
         formData.append('fade_in', fadeInSlider.value);
         formData.append('fade_out', fadeOutSlider.value);
         formData.append('normalize', normalizeCheckbox.checked);
+        formData.append('speed', speedSlider.value);
+        formData.append('pitch', pitchSlider.value);
+        formData.append('bass', bassSlider.value);
+        formData.append('mid', midSlider.value);
+        formData.append('treble', trebleSlider.value);
 
         editBtn.disabled = true;
         const originalText = editBtn.textContent;

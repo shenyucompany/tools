@@ -48,6 +48,13 @@
                             </div>
                         </div>
                         <div class="setting-group">
+                            <label for="noise-reduce">降噪强度：</label>
+                            <div class="noise-slider">
+                                <input type="range" id="noise-reduce" min="0" max="100" value="0" step="10">
+                                <span id="noise-value">0%</span>
+                            </div>
+                        </div>
+                        <div class="setting-group">
                             <label for="fade-in">淡入时长：</label>
                             <div class="fade-slider">
                                 <input type="range" id="fade-in" min="0" max="10" value="0" step="0.5">
@@ -59,6 +66,40 @@
                             <div class="fade-slider">
                                 <input type="range" id="fade-out" min="0" max="10" value="0" step="0.5">
                                 <span id="fade-out-value">0 秒</span>
+                            </div>
+                        </div>
+                        <div class="equalizer-section">
+                            <h3>均衡器</h3>
+                            <div class="eq-sliders">
+                                <div class="eq-group">
+                                    <label>低音</label>
+                                    <input type="range" id="bass" min="-12" max="12" value="0" step="1" orient="vertical">
+                                    <span id="bass-value">0 dB</span>
+                                </div>
+                                <div class="eq-group">
+                                    <label>中音</label>
+                                    <input type="range" id="mid" min="-12" max="12" value="0" step="1" orient="vertical">
+                                    <span id="mid-value">0 dB</span>
+                                </div>
+                                <div class="eq-group">
+                                    <label>高音</label>
+                                    <input type="range" id="treble" min="-12" max="12" value="0" step="1" orient="vertical">
+                                    <span id="treble-value">0 dB</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="setting-group">
+                            <label for="speed">播放速度：</label>
+                            <div class="speed-slider">
+                                <input type="range" id="speed" min="0.5" max="2" value="1" step="0.1">
+                                <span id="speed-value">1.0x</span>
+                            </div>
+                        </div>
+                        <div class="setting-group">
+                            <label for="pitch">音调调整：</label>
+                            <div class="pitch-slider">
+                                <input type="range" id="pitch" min="-12" max="12" value="0" step="1">
+                                <span id="pitch-value">0 半音</span>
                             </div>
                         </div>
                         <div class="setting-group">
