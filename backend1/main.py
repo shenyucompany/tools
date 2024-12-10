@@ -5,7 +5,7 @@ from routers import (
     pdf_converter, video_converter, video_compress, video_trim, 
     video_merge, video_watermark, video_extract, video_speed, video_rotate,
     audio_converter, audio_cutter, audio_merger, audio_compressor, audio_editor,
-    audio_recorder, audio_effects
+    audio_recorder, audio_effects, audio_extract
 )
 
 app = FastAPI()
@@ -37,6 +37,7 @@ app.include_router(audio_compressor.router)
 app.include_router(audio_editor.router)
 app.include_router(audio_recorder.router)
 app.include_router(audio_effects.router)
+app.include_router(audio_extract.router)
 
 if __name__ == "__main__":
     import uvicorn

@@ -7,4 +7,12 @@ PyMuPDF==1.23.7
 aiofiles==23.2.1
 pydub==0.25.1
 scipy==1.11.4
-numpy==1.26.2 
+numpy==1.26.2
+moviepy==1.0.3
+SpeechRecognition==3.10.0
+google-api-python-client==2.108.0
+google-cloud-speech==2.21.0
+gTTS==2.3.2
+ffmpeg-python==0.2.0
+sounddevice==0.4.6
+soundfile==0.12.1 
