@@ -368,21 +368,87 @@ document.addEventListener('DOMContentLoaded', function() {
             dialog.innerHTML = `
                 <div class="effects-content">
                     <h3>音频效果</h3>
-                    <div class="effect-controls">
-                        <div class="effect-group">
-                            <label>音量调整</label>
-                            <input type="range" id="volume-control" min="-20" max="20" value="0" step="1">
-                            <span>0 dB</span>
-                        </div>
-                        <div class="effect-group">
-                            <label>淡入淡出</label>
-                            <div class="fade-controls">
-                                <input type="number" id="fade-in" min="0" max="10" value="0" step="0.1">
-                                <span>秒淡入</span>
-                                <input type="number" id="fade-out" min="0" max="10" value="0" step="0.1">
-                                <span>秒淡出</span>
+                    <div class="effects-tabs">
+                        <button class="tab-btn active" data-tab="reverb">混响</button>
+                        <button class="tab-btn" data-tab="stereo">声道转换</button>
+                        <button class="tab-btn" data-tab="echo">回声</button>
+                        <button class="tab-btn" data-tab="distortion">失真</button>
+                        <button class="tab-btn" data-tab="filter">滤波器</button>
+                    </div>
+                    <div class="effects-panels">
+                        <div class="panel active" id="reverb-panel">
+                            <div class="effect-group">
+                                <label>房间大小</label>
+                                <input type="range" id="room-size" min="0" max="1" value="0.5" step="0.1">
+                                <span>0.5</span>
+                            </div>
+                            <div class="effect-group">
+                                <label>衰减系数</label>
+                                <input type="range" id="damping" min="0" max="1" value="0.5" step="0.1">
+                                <span>0.5</span>
                             </div>
                         </div>
+                        <div class="panel" id="stereo-panel">
+                            <div class="effect-group">
+                                <label>声道模式</label>
+                                <select id="stereo-mode">
+                                    <option value="stereo">立体声</option>
+                                    <option value="mono">单声道</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="panel" id="echo-panel">
+                            <div class="effect-group">
+                                <label>延迟时间 (秒)</label>
+                                <input type="range" id="echo-delay" min="0.1" max="2" value="0.3" step="0.1">
+                                <span>0.3s</span>
+                            </div>
+                            <div class="effect-group">
+                                <label>衰减系数</label>
+                                <input type="range" id="echo-decay" min="0" max="1" value="0.5" step="0.1">
+                                <span>0.5</span>
+                            </div>
+                        </div>
+                        <div class="panel" id="distortion-panel">
+                            <div class="effect-group">
+                                <label>增益</label>
+                                <input type="range" id="distortion-gain" min="1" max="10" value="2" step="0.5">
+                                <span>2.0</span>
+                            </div>
+                            <div class="effect-group">
+                                <label>阈值</label>
+                                <input type="range" id="distortion-threshold" min="0.1" max="1" value="0.5" step="0.1">
+                                <span>0.5</span>
+                            </div>
+                        </div>
+                        <div class="panel" id="filter-panel">
+                            <div class="effect-group">
+                                <label>滤波器类型</label>
+                                <select id="filter-type">
+                                    <option value="lowpass">低通滤波器</option>
+                                    <option value="highpass">高通滤波器</option>
+                                    <option value="bandpass">带通滤波器</option>
+                                </select>
+                            </div>
+                            <div class="effect-group">
+                                <label>截止频率 (Hz)</label>
+                                <input type="range" id="filter-cutoff" min="20" max="20000" value="1000" step="10">
+                                <span>1000 Hz</span>
+                            </div>
+                            <div class="effect-group">
+                                <label>滤波器阶数</label>
+                                <select id="filter-order">
+                                    <option value="2">2阶</option>
+                                    <option value="4" selected>4阶</option>
+                                    <option value="6">6阶</option>
+                                    <option value="8">8阶</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-section">
+                        <button id="preview-btn" class="preview-btn">预览效果</button>
+                        <div class="preview-waveform" id="preview-waveform"></div>
                     </div>
                     <div class="dialog-buttons">
                         <button class="cancel-btn">取消</button>
@@ -393,43 +459,148 @@ document.addEventListener('DOMContentLoaded', function() {
 
             document.body.appendChild(dialog);
 
-            // 添加效果对话框的事件处理
-            const volumeControl = dialog.querySelector('#volume-control');
-            volumeControl.addEventListener('input', (e) => {
-                e.target.nextElementSibling.textContent = `${e.target.value} dB`;
+            // 添加标签切换功能
+            const tabs = dialog.querySelectorAll('.tab-btn');
+            const panels = dialog.querySelectorAll('.panel');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    panels.forEach(p => p.classList.remove('active'));
+                    tab.classList.add('active');
+                    dialog.querySelector(`#${tab.dataset.tab}-panel`).classList.add('active');
+                });
             });
 
+            // 添加滑块值更新
+            dialog.querySelectorAll('input[type="range"]').forEach(slider => {
+                slider.addEventListener('input', (e) => {
+                    const value = e.target.value;
+                    e.target.nextElementSibling.textContent = 
+                        e.target.id === 'filter-cutoff' ? `${value} Hz` :
+                        e.target.id === 'echo-delay' ? `${value}s` :
+                        value;
+                });
+            });
+
+            // 预览功能
+            let previewWavesurfer = null;
+            const previewBtn = dialog.querySelector('#preview-btn');
+            previewBtn.addEventListener('click', async () => {
+                const effects = getEffectsConfig();
+                try {
+                    const processedBlob = await applyEffects(blob, effects);
+                    
+                    if (previewWavesurfer) {
+                        previewWavesurfer.destroy();
+                    }
+
+                    previewWavesurfer = WaveSurfer.create({
+                        container: dialog.querySelector('#preview-waveform'),
+                        waveColor: '#A8DBA8',
+                        progressColor: '#4CAF50',
+                        height: 50,
+                        normalize: true
+                    });
+
+                    previewWavesurfer.loadBlob(processedBlob);
+                } catch (error) {
+                    console.error('Preview error:', error);
+                    alert('预览失败：' + error.message);
+                }
+            });
+
+            // 获取效果配置
+            function getEffectsConfig() {
+                const effects = [];
+                const activePanel = dialog.querySelector('.panel.active');
+                const effectType = activePanel.id.replace('-panel', '');
+
+                switch (effectType) {
+                    case 'reverb':
+                        effects.push({
+                            type: 'reverb',
+                            params: {
+                                roomSize: parseFloat(dialog.querySelector('#room-size').value),
+                                damping: parseFloat(dialog.querySelector('#damping').value)
+                            }
+                        });
+                        break;
+                    case 'stereo':
+                        effects.push({
+                            type: 'stereo',
+                            params: {
+                                mode: dialog.querySelector('#stereo-mode').value
+                            }
+                        });
+                        break;
+                    case 'echo':
+                        effects.push({
+                            type: 'echo',
+                            params: {
+                                delay: parseFloat(dialog.querySelector('#echo-delay').value),
+                                decay: parseFloat(dialog.querySelector('#echo-decay').value)
+                            }
+                        });
+                        break;
+                    case 'distortion':
+                        effects.push({
+                            type: 'distortion',
+                            params: {
+                                gain: parseFloat(dialog.querySelector('#distortion-gain').value),
+                                threshold: parseFloat(dialog.querySelector('#distortion-threshold').value)
+                            }
+                        });
+                        break;
+                    case 'filter':
+                        effects.push({
+                            type: 'filter',
+                            params: {
+                                type: dialog.querySelector('#filter-type').value,
+                                cutoff: parseFloat(dialog.querySelector('#filter-cutoff').value),
+                                order: parseInt(dialog.querySelector('#filter-order').value)
+                            }
+                        });
+                        break;
+                }
+
+                return effects;
+            }
+
+            // 应用效果
+            async function applyEffects(audioBlob, effects) {
+                const formData = new FormData();
+                formData.append('file', new File([audioBlob], 'audio.wav'));
+                formData.append('effects', JSON.stringify(effects));
+                formData.append('format', 'wav');
+
+                const response = await fetch('http://localhost:8000/api/audio/effects', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.detail || '应用效果失败');
+                }
+
+                return await response.blob();
+            }
+
+            // 取消按钮
             dialog.querySelector('.cancel-btn').onclick = () => {
+                if (previewWavesurfer) {
+                    previewWavesurfer.destroy();
+                }
                 document.body.removeChild(dialog);
             };
 
+            // 应用按钮
             dialog.querySelector('.apply-btn').onclick = async () => {
-                const volume = parseFloat(volumeControl.value);
-                const fadeIn = parseFloat(dialog.querySelector('#fade-in').value);
-                const fadeOut = parseFloat(dialog.querySelector('#fade-out').value);
-
-                const formData = new FormData();
-                formData.append('file', new File([blob], 'audio.wav'));
-                formData.append('volume', volume);
-                formData.append('fade_in', fadeIn);
-                formData.append('fade_out', fadeOut);
-                formData.append('format', 'wav');
-
                 try {
-                    const response = await fetch('http://localhost:8000/api/audio/record/edit', {
-                        method: 'POST',
-                        body: formData
-                    });
-
-                    if (!response.ok) {
-                        const error = await response.json();
-                        throw new Error(error.detail || '应用效果失败');
-                    }
-
-                    const newBlob = await response.blob();
-                    wavesurfer.loadBlob(newBlob);
+                    const effects = getEffectsConfig();
+                    const processedBlob = await applyEffects(blob, effects);
+                    wavesurfer.loadBlob(processedBlob);
                     document.body.removeChild(dialog);
-                    alert('效果应用成功！');
                 } catch (error) {
                     console.error('Error applying effects:', error);
                     alert('应用效果失败：' + error.message);

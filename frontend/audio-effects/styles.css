@@ -1,0 +1,380 @@
+:root {
+    --primary-color: #0066ff;
+    --primary-dark: #0052cc;
+    --success-color: #4CAF50;
+    --success-dark: #45a049;
+    --text-primary: #1a1a1a;
+    --text-secondary: #666666;
+    --background-light: #f8f9fa;
+    --border-radius: 8px;
+    --box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 上传区域样式 */
+.upload-section {
+    background: white;
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.upload-area {
+    border: 2px dashed #ddd;
+    border-radius: var(--border-radius);
+    padding: 40px 20px;
+    margin-bottom: 20px;
+    background-color: var(--background-light);
+    transition: all 0.3s ease;
+}
+
+.upload-area:hover {
+    border-color: var(--primary-color);
+    background-color: #f0f7ff;
+}
+
+.upload-icon {
+    width: 48px;
+    height: 48px;
+    fill: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+label[for="file-input"] {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 20px 40px;
+    background-color: white;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    transition: all 0.3s;
+    min-width: 240px;
+}
+
+label[for="file-input"]:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+label[for="file-input"]:hover .upload-icon {
+    fill: white;
+}
+
+/* 文件列表样式 */
+.file-list {
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    background: var(--background-light);
+    border-radius: var(--border-radius);
+    border: 1px solid #eee;
+}
+
+.file-name {
+    flex: 1;
+    color: var(--text-primary);
+    font-weight: 500;
+    margin-right: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.file-size {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+}
+
+/* 编辑器部分样式 */
+.editor-section {
+    background: white;
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 40px;
+}
+
+.editor-section h2 {
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+#waveform {
+    margin-bottom: 20px;
+    background: var(--background-light);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.time-info {
+    font-family: monospace;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* 效果面板样式 */
+.effects-panel {
+    background: var(--background-light);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    margin-top: 20px;
+}
+
+.effects-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    overflow-x: auto;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    background: white;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.tab-btn.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+.tab-btn:hover:not(.active) {
+    background: #e9ecef;
+}
+
+.effects-content {
+    margin-bottom: 20px;
+}
+
+.panel {
+    display: none;
+    padding: 20px;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.panel.active {
+    display: block;
+}
+
+.effect-group {
+    margin-bottom: 20px;
+}
+
+.effect-group:last-child {
+    margin-bottom: 0;
+}
+
+.effect-group label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.effect-group input[type="range"] {
+    width: 100%;
+    margin-bottom: 5px;
+    -webkit-appearance: none;
+    height: 6px;
+    background: #ddd;
+    border-radius: 3px;
+    outline: none;
+}
+
+.effect-group input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.effect-group input[type="range"]::-webkit-slider-thumb:hover {
+    background: var(--primary-dark);
+}
+
+.effect-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    background: white;
+    color: var(--text-primary);
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.effect-group span {
+    display: block;
+    text-align: right;
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    font-family: monospace;
+}
+
+/* 操作按钮样式 */
+.effects-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    margin-top: 25px;
+}
+
+.preview-btn,
+.apply-btn,
+.save-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+    font-size: 1em;
+}
+
+.preview-btn {
+    background: var(--background-light);
+    color: var(--text-primary);
+}
+
+.apply-btn {
+    background: var(--primary-color);
+    color: white;
+}
+
+.save-btn {
+    background: var(--success-color);
+    color: white;
+}
+
+.preview-btn:hover {
+    background: #e9ecef;
+}
+
+.apply-btn:hover {
+    background: var(--primary-dark);
+}
+
+.save-btn:hover {
+    background: var(--success-dark);
+}
+
+.preview-btn:disabled,
+.apply-btn:disabled,
+.save-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* 使用说明样式 */
+.manual {
+    background: white;
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 40px;
+}
+
+.manual h2 {
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.manual-content {
+    padding: 25px;
+    background: var(--background-light);
+    border-radius: var(--border-radius);
+}
+
+.manual ol {
+    padding-left: 25px;
+    counter-reset: item;
+    list-style: none;
+}
+
+.manual li {
+    margin-bottom: 20px;
+    color: var(--text-secondary);
+    position: relative;
+    padding-left: 15px;
+    line-height: 1.6;
+    counter-increment: item;
+}
+
+.manual li:before {
+    content: counter(item);
+    position: absolute;
+    left: -25px;
+    width: 24px;
+    height: 24px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.manual li:last-child {
+    margin-bottom: 0;
+}
+
+.manual strong {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .upload-section,
+    .editor-section,
+    .manual {
+        padding: 20px;
+    }
+
+    .effects-tabs {
+        flex-wrap: wrap;
+    }
+
+    .effects-actions {
+        flex-direction: column;
+    }
+
+    .preview-btn,
+    .apply-btn,
+    .save-btn {
+        width: 100%;
+    }
+
+    label[for="file-input"] {
+        min-width: 200px;
+        padding: 15px 30px;
+    }
+} 

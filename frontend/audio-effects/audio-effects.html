@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音频特效工具 | 工具箱</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="../index.html" class="nav-brand">
+                    <h2>工具箱</h2>
+                </a>
+                <div class="nav-links">
+                    <a href="../index.html">所有工具</a>
+                    <a href="#" class="active">音频特效</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <header>
+                <h1>音频特效工具</h1>
+                <p class="subtitle">添加混响、回声等音频效果</p>
+            </header>
+
+            <main>
+                <section class="upload-section">
+                    <div class="upload-area">
+                        <input type="file" id="file-input" accept="audio/*" hidden>
+                        <label for="file-input">
+                            <svg class="upload-icon" viewBox="0 0 24 24">
+                                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                            </svg>
+                            <span>选择音频文件</span>
+                        </label>
+                    </div>
+                    <div id="file-list" class="file-list"></div>
+                </section>
+
+                <section class="editor-section" hidden>
+                    <h2>音频编辑</h2>
+                    <div id="waveform"></div>
+                    <div class="editor-controls">
+                        <div class="time-info">
+                            <span id="current-time">00:00</span> / 
+                            <span id="duration">00:00</span>
+                        </div>
+                        <div class="effects-panel">
+                            <div class="effects-tabs">
+                                <button class="tab-btn active" data-tab="reverb">混响</button>
+                                <button class="tab-btn" data-tab="stereo">声道转换</button>
+                                <button class="tab-btn" data-tab="echo">回声</button>
+                                <button class="tab-btn" data-tab="distortion">失真</button>
+                                <button class="tab-btn" data-tab="filter">滤波器</button>
+                            </div>
+                            <div class="effects-content">
+                                <div class="panel active" id="reverb-panel">
+                                    <div class="effect-group">
+                                        <label>房间大小</label>
+                                        <input type="range" id="room-size" min="0" max="1" value="0.5" step="0.1">
+                                        <span>0.5</span>
+                                    </div>
+                                    <div class="effect-group">
+                                        <label>衰减系数</label>
+                                        <input type="range" id="damping" min="0" max="1" value="0.5" step="0.1">
+                                        <span>0.5</span>
+                                    </div>
+                                </div>
+                                <div class="panel" id="stereo-panel">
+                                    <div class="effect-group">
+                                        <label>声道模式</label>
+                                        <select id="stereo-mode">
+                                            <option value="stereo">立体声</option>
+                                            <option value="mono">单声道</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="panel" id="echo-panel">
+                                    <div class="effect-group">
+                                        <label>延迟时间 (秒)</label>
+                                        <input type="range" id="echo-delay" min="0.1" max="2" value="0.3" step="0.1">
+                                        <span>0.3s</span>
+                                    </div>
+                                    <div class="effect-group">
+                                        <label>衰减系数</label>
+                                        <input type="range" id="echo-decay" min="0" max="1" value="0.5" step="0.1">
+                                        <span>0.5</span>
+                                    </div>
+                                </div>
+                                <div class="panel" id="distortion-panel">
+                                    <div class="effect-group">
+                                        <label>增益</label>
+                                        <input type="range" id="distortion-gain" min="1" max="10" value="2" step="0.5">
+                                        <span>2.0</span>
+                                    </div>
+                                    <div class="effect-group">
+                                        <label>阈值</label>
+                                        <input type="range" id="distortion-threshold" min="0.1" max="1" value="0.5" step="0.1">
+                                        <span>0.5</span>
+                                    </div>
+                                </div>
+                                <div class="panel" id="filter-panel">
+                                    <div class="effect-group">
+                                        <label>滤波器类型</label>
+                                        <select id="filter-type">
+                                            <option value="lowpass">低通滤波器</option>
+                                            <option value="highpass">高通滤波器</option>
+                                            <option value="bandpass">带通滤波器</option>
+                                        </select>
+                                    </div>
+                                    <div class="effect-group">
+                                        <label>截止频率 (Hz)</label>
+                                        <input type="range" id="filter-cutoff" min="20" max="20000" value="1000" step="10">
+                                        <span>1000 Hz</span>
+                                    </div>
+                                    <div class="effect-group">
+                                        <label>滤波器阶数</label>
+                                        <select id="filter-order">
+                                            <option value="2">2阶</option>
+                                            <option value="4" selected>4阶</option>
+                                            <option value="6">6阶</option>
+                                            <option value="8">8阶</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="effects-actions">
+                                <button id="preview-btn" class="preview-btn">预览效果</button>
+                                <button id="apply-btn" class="apply-btn">应用效果</button>
+                                <button id="save-btn" class="save-btn">保存音频</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="manual">
+                    <h2>使用说明</h2>
+                    <div class="manual-content">
+                        <ol>
+                            <li>点击<strong>选择音频文件</strong>上传需要处理的音频</li>
+                            <li>在<strong>效果面板</strong>中选择并调整音频效果</li>
+                            <li>点击<strong>预览效果</strong>试听处理结果</li>
+                            <li>满意后点击<strong>应用效果</strong>确认修改</li>
+                            <li>最后点击<strong>保存音频</strong>下载处理后的文件</li>
+                        </ol>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>工具箱</h3>
+                    <p>让工作更高效，让生活更简单</p>
+                </div>
+                <div class="footer-bottom">
+                    <p class="copyright">© 2024 工具箱 - 专注于提供高效的在线工具</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="https://unpkg.com/wavesurfer.js@6.6.4"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
