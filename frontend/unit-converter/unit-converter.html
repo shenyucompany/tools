@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>度量衡转换 | 工具箱</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="../index.html" class="nav-brand">
+                    <h2>工具箱</h2>
+                </a>
+                <div class="nav-links">
+                    <a href="../index.html">所有工具</a>
+                    <a href="#" class="active">度量衡转换</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <header>
+                <h1>度量衡转换</h1>
+                <p class="subtitle">长度、重量、面积等单位换算</p>
+            </header>
+
+            <main>
+                <section class="converter-section">
+                    <div class="unit-type-selector">
+                        <button class="type-btn active" data-type="length">长度</button>
+                        <button class="type-btn" data-type="weight">重量</button>
+                        <button class="type-btn" data-type="area">面积</button>
+                        <button class="type-btn" data-type="volume">体积</button>
+                    </div>
+
+                    <div class="converter-container">
+                        <div class="input-group">
+                            <input type="number" id="unit-value" class="unit-input" placeholder="输入数值">
+                            <select id="unit-from" class="unit-select"></select>
+                        </div>
+                        <div class="equals-sign">=</div>
+                        <div class="input-group">
+                            <input type="number" id="unit-result" class="unit-input" readonly>
+                            <select id="unit-to" class="unit-select"></select>
+                        </div>
+                    </div>
+
+                    <div class="common-units">
+                        <h3>常用单位换算表</h3>
+                        <div id="conversion-table" class="conversion-table"></div>
+                    </div>
+                </section>
+
+                <section class="manual">
+                    <h2>使用说明</h2>
+                    <div class="manual-content">
+                        <h3>支持的单位类型</h3>
+                        <ol>
+                            <li>
+                                <strong>长度单位</strong>
+                                <p>米、千米、厘米、毫米、英寸、英尺等</p>
+                            </li>
+                            <li>
+                                <strong>重量单位</strong>
+                                <p>千克、克、毫克、磅、盎司等</p>
+                            </li>
+                            <li>
+                                <strong>面积单位</strong>
+                                <p>平方米、平方千米、平方厘米、公顷等</p>
+                            </li>
+                            <li>
+                                <strong>体积单位</strong>
+                                <p>立方米、升、毫升、加仑等</p>
+                            </li>
+                        </ol>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>工具箱</h3>
+                    <p>让工作更高效，让生活更简单</p>
+                </div>
+                <div class="footer-bottom">
+                    <p class="copyright">© 2024 工具箱 - 专注于提供高效的在线工具</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

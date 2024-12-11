@@ -145,4 +145,164 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('HTML实体解码失败：' + error.message);
         }
     });
+
+    // 度量衡转换单位定义
+    const unitTypes = {
+        length: {
+            m: { name: '米', ratio: 1 },
+            km: { name: '千米', ratio: 1000 },
+            cm: { name: '厘米', ratio: 0.01 },
+            mm: { name: '毫米', ratio: 0.001 },
+            inch: { name: '英寸', ratio: 0.0254 },
+            ft: { name: '英尺', ratio: 0.3048 }
+        },
+        weight: {
+            kg: { name: '千克', ratio: 1 },
+            g: { name: '克', ratio: 0.001 },
+            mg: { name: '毫克', ratio: 0.000001 },
+            lb: { name: '磅', ratio: 0.4536 },
+            oz: { name: '盎司', ratio: 0.02835 }
+        },
+        area: {
+            m2: { name: '平方米', ratio: 1 },
+            km2: { name: '平方千米', ratio: 1000000 },
+            cm2: { name: '平方厘米', ratio: 0.0001 },
+            ha: { name: '公顷', ratio: 10000 }
+        },
+        volume: {
+            m3: { name: '立方米', ratio: 1 },
+            L: { name: '升', ratio: 0.001 },
+            mL: { name: '毫升', ratio: 0.000001 },
+            gal: { name: '加仑', ratio: 0.003785 }
+        }
+    };
+
+    // 度量衡转换功能
+    const unitType = document.getElementById('unit-type');
+    const unitValue = document.getElementById('unit-value');
+    const unitFrom = document.getElementById('unit-from');
+    const unitTo = document.getElementById('unit-to');
+    const unitResult = document.getElementById('unit-result');
+
+    function updateUnitOptions() {
+        const type = unitType.value;
+        const units = unitTypes[type];
+        
+        unitFrom.innerHTML = '';
+        unitTo.innerHTML = '';
+        
+        Object.entries(units).forEach(([key, unit]) => {
+            unitFrom.add(new Option(`${unit.name} (${key})`, key));
+            unitTo.add(new Option(`${unit.name} (${key})`, key));
+        });
+        
+        convertUnit();
+    }
+
+    function convertUnit() {
+        const type = unitType.value;
+        const value = parseFloat(unitValue.value) || 0;
+        const fromUnit = unitTypes[type][unitFrom.value];
+        const toUnit = unitTypes[type][unitTo.value];
+        
+        const result = value * fromUnit.ratio / toUnit.ratio;
+        unitResult.value = result.toFixed(6);
+    }
+
+    unitType.addEventListener('change', updateUnitOptions);
+    unitValue.addEventListener('input', convertUnit);
+    unitFrom.addEventListener('change', convertUnit);
+    unitTo.addEventListener('change', convertUnit);
+
+    // 货币转换功能
+    const currencyAmount = document.getElementById('currency-amount');
+    const currencyFrom = document.getElementById('currency-from');
+    const currencyTo = document.getElementById('currency-to');
+    const currencyResult = document.getElementById('currency-result');
+
+    async function convertCurrency() {
+        try {
+            const amount = parseFloat(currencyAmount.value) || 0;
+            const from = currencyFrom.value;
+            const to = currencyTo.value;
+            
+            // 这里应该使用实际的汇率API，这里使用模拟数据
+            const rates = {
+                'CNY': { 'USD': 0.15, 'EUR': 0.13, 'JPY': 16.5 },
+                'USD': { 'CNY': 6.67, 'EUR': 0.85, 'JPY': 110 },
+                'EUR': { 'CNY': 7.85, 'USD': 1.18, 'JPY': 129.5 },
+                'JPY': { 'CNY': 0.061, 'USD': 0.009, 'EUR': 0.0077 }
+            };
+            
+            if (from === to) {
+                currencyResult.value = amount;
+            } else {
+                const rate = rates[from][to];
+                currencyResult.value = (amount * rate).toFixed(2);
+            }
+        } catch (error) {
+            alert('货币转换失败');
+        }
+    }
+
+    currencyAmount.addEventListener('input', convertCurrency);
+    currencyFrom.addEventListener('change', convertCurrency);
+    currencyTo.addEventListener('change', convertCurrency);
+
+    // 时区转换功能
+    const timezoneTime = document.getElementById('timezone-time');
+    const timezoneFrom = document.getElementById('timezone-from');
+    const timezoneResults = document.getElementById('timezone-results');
+
+    function convertTimezone() {
+        try {
+            const date = new Date(timezoneTime.value);
+            if (isNaN(date)) return;
+            
+            const fromZone = timezoneFrom.value;
+            const targetZones = ['Asia/Shanghai', 'America/New_York', 'Europe/London', 'Asia/Tokyo'];
+            
+            const results = targetZones.map(zone => {
+                const options = {
+                    timeZone: zone,
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                };
+                
+                return {
+                    zone: zone,
+                    time: date.toLocaleString('zh-CN', options)
+                };
+            });
+            
+            timezoneResults.innerHTML = results.map(result => `
+                <div class="timezone-result-item">
+                    <span>${getTimezoneName(result.zone)}</span>
+                    <span>${result.time}</span>
+                </div>
+            `).join('');
+        } catch (error) {
+            alert('时区转换失败');
+        }
+    }
+
+    function getTimezoneName(zone) {
+        const names = {
+            'Asia/Shanghai': '北京',
+            'America/New_York': '纽约',
+            'Europe/London': '伦敦',
+            'Asia/Tokyo': '东京'
+        };
+        return names[zone] || zone;
+    }
+
+    timezoneTime.addEventListener('input', convertTimezone);
+    timezoneFrom.addEventListener('change', convertTimezone);
+
+    // 初始化
+    updateUnitOptions();
 }); 

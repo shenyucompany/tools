@@ -1,0 +1,194 @@
+/* 转换器部分样式 */
+.converter-section {
+    background: white;
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 40px;
+}
+
+/* 时区转换容器 */
+.timezone-container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding: 30px;
+    background: var(--background-light);
+    border-radius: var(--border-radius);
+    border: 1px solid #eee;
+}
+
+.input-group {
+    flex: 1;
+    display: flex;
+    gap: 15px;
+}
+
+.time-input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.time-input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 102, 255, 0.1);
+}
+
+.timezone-select {
+    min-width: 180px;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    background: white;
+    color: var(--text-primary);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.timezone-select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 102, 255, 0.1);
+}
+
+/* 时区结果列表 */
+.timezone-results {
+    margin-bottom: 30px;
+    padding: 30px;
+    background: var(--background-light);
+    border-radius: var(--border-radius);
+    border: 1px solid #eee;
+}
+
+.timezone-results h3 {
+    color: var(--text-primary);
+    font-size: 1.1em;
+    margin: 0 0 20px 0;
+}
+
+.time-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+}
+
+.time-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: white;
+    border-radius: var(--border-radius);
+    border: 1px solid #eee;
+    transition: all 0.3s ease;
+}
+
+.time-item:hover {
+    border-color: var(--primary-color);
+    transform: translateX(5px);
+}
+
+.time-location {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.time-value {
+    color: var(--text-secondary);
+}
+
+/* 使用说明样式 */
+.manual {
+    background: white;
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.manual h2 {
+    color: var(--text-primary);
+    margin: 0 0 25px 0;
+    font-size: 1.5em;
+}
+
+.manual-content {
+    padding: 25px;
+    background: var(--background-light);
+    border-radius: var(--border-radius);
+    border: 1px solid #eee;
+}
+
+.manual h3 {
+    color: var(--text-primary);
+    font-size: 1.2em;
+    margin: 0 0 20px 0;
+}
+
+.manual ol {
+    list-style: none;
+    counter-reset: item;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 15px;
+}
+
+.manual li {
+    position: relative;
+    padding: 20px;
+    background: white;
+    border: 1px solid #eee;
+    border-radius: var(--border-radius);
+    counter-increment: item;
+}
+
+.manual li strong {
+    display: block;
+    color: var(--text-primary);
+    font-size: 1.1em;
+    margin-bottom: 8px;
+}
+
+.manual li p {
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .converter-section {
+        padding: 20px;
+    }
+
+    .timezone-container {
+        padding: 20px;
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
+
+    .timezone-select {
+        width: 100%;
+    }
+
+    .time-list {
+        grid-template-columns: 1fr;
+    }
+
+    .manual {
+        padding: 20px;
+    }
+
+    .manual-content {
+        padding: 20px;
+    }
+} 

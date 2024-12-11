@@ -133,6 +133,7 @@
 
 .format-actions {
     display: flex;
+    flex-direction: column;
     gap: 10px;
 }
 
@@ -327,4 +328,106 @@
     .manual li:hover {
         transform: none;
     }
+} 
+
+/* 度量衡转换样式 */
+.unit-converter {
+    gap: 15px;
+}
+
+.unit-select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    background: white;
+    color: var(--text-primary);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.unit-input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.unit-input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+}
+
+/* 货币转换样式 */
+.currency-converter {
+    gap: 15px;
+}
+
+.currency-input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.currency-input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+}
+
+.currency-select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    background: white;
+    color: var(--text-primary);
+    font-size: 14px;
+    cursor: pointer;
+    min-width: 120px;
+}
+
+/* 时区转换样式 */
+.timezone-converter {
+    gap: 15px;
+}
+
+.timezone-input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.timezone-input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+}
+
+.timezone-select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    background: white;
+    color: var(--text-primary);
+    font-size: 14px;
+    cursor: pointer;
+    min-width: 150px;
+}
+
+.timezone-list {
+    display: grid;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.timezone-result-item {
+    padding: 10px;
+    background: white;
+    border: 1px solid #eee;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
 } 

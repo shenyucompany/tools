@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>货币转换 | 工具箱</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="../index.html" class="nav-brand">
+                    <h2>工具箱</h2>
+                </a>
+                <div class="nav-links">
+                    <a href="../index.html">所有工具</a>
+                    <a href="#" class="active">货币转换</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <header>
+                <h1>货币转换</h1>
+                <p class="subtitle">实时汇率换算</p>
+            </header>
+
+            <main>
+                <section class="converter-section">
+                    <div class="currency-container">
+                        <div class="input-group">
+                            <input type="number" id="amount" class="currency-input" placeholder="输入金额">
+                            <select id="from-currency" class="currency-select">
+                                <option value="CNY">人民币 (CNY)</option>
+                                <option value="USD">美元 (USD)</option>
+                                <option value="EUR">欧元 (EUR)</option>
+                                <option value="GBP">英镑 (GBP)</option>
+                                <option value="JPY">日元 (JPY)</option>
+                                <option value="KRW">韩元 (KRW)</option>
+                                <option value="HKD">港币 (HKD)</option>
+                            </select>
+                        </div>
+                        <div class="swap-btn">
+                            <button id="swap-currency">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="input-group">
+                            <input type="number" id="result" class="currency-input" readonly>
+                            <select id="to-currency" class="currency-select">
+                                <option value="USD">美元 (USD)</option>
+                                <option value="CNY">人民币 (CNY)</option>
+                                <option value="EUR">欧元 (EUR)</option>
+                                <option value="GBP">英镑 (GBP)</option>
+                                <option value="JPY">日元 (JPY)</option>
+                                <option value="KRW">韩元 (KRW)</option>
+                                <option value="HKD">港币 (HKD)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="rate-info">
+                        <div id="exchange-rate" class="rate-display">1 CNY = 0.1389 USD</div>
+                        <div class="rate-update">汇率更新时间：<span id="update-time">2024-01-20 12:00</span></div>
+                    </div>
+
+                    <div class="common-rates">
+                        <h3>主要货币汇率</h3>
+                        <div id="rate-table" class="rate-table"></div>
+                    </div>
+                </section>
+
+                <section class="manual">
+                    <h2>使用说明</h2>
+                    <div class="manual-content">
+                        <h3>功能特点</h3>
+                        <ol>
+                            <li>
+                                <strong>实时汇率</strong>
+                                <p>每日更新的准确汇率数据</p>
+                            </li>
+                            <li>
+                                <strong>多币种支持</strong>
+                                <p>支持人民币、美元、欧元等主要货币</p>
+                            </li>
+                            <li>
+                                <strong>快速切换</strong>
+                                <p>一键互换转换币种</p>
+                            </li>
+                        </ol>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>工具箱</h3>
+                    <p>让工作更高效，让生活更简单</p>
+                </div>
+                <div class="footer-bottom">
+                    <p class="copyright">© 2024 工具箱 - 专注于提供高效的在线工具</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

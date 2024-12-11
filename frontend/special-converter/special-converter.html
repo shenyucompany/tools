@@ -77,6 +77,74 @@
                                             <button id="html-decode" class="action-btn">← 解码</button>
                                         </div>
                                     </div>
+                                    <div class="format-item" data-format="unit">
+                                        <div class="format-info">
+                                            <span class="format-name">度量衡转换</span>
+                                            <span class="format-desc">长度、重量、面积等单位转换</span>
+                                        </div>
+                                        <div class="format-actions unit-converter">
+                                            <select id="unit-type" class="unit-select">
+                                                <option value="length">长度</option>
+                                                <option value="weight">重量</option>
+                                                <option value="area">面积</option>
+                                                <option value="volume">体积</option>
+                                            </select>
+                                            <div class="unit-input-group">
+                                                <input type="number" id="unit-value" class="unit-input" placeholder="输入数值">
+                                                <select id="unit-from" class="unit-select"></select>
+                                            </div>
+                                            <div class="unit-input-group">
+                                                <input type="number" id="unit-result" class="unit-input" readonly>
+                                                <select id="unit-to" class="unit-select"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="format-item" data-format="currency">
+                                        <div class="format-info">
+                                            <span class="format-name">货币转换</span>
+                                            <span class="format-desc">实时汇率换算</span>
+                                        </div>
+                                        <div class="format-actions currency-converter">
+                                            <div class="currency-input-group">
+                                                <input type="number" id="currency-amount" class="currency-input" placeholder="输入金额">
+                                                <select id="currency-from" class="currency-select">
+                                                    <option value="CNY">人民币 CNY</option>
+                                                    <option value="USD">美元 USD</option>
+                                                    <option value="EUR">欧元 EUR</option>
+                                                    <option value="JPY">日元 JPY</option>
+                                                </select>
+                                            </div>
+                                            <div class="currency-input-group">
+                                                <input type="number" id="currency-result" class="currency-input" readonly>
+                                                <select id="currency-to" class="currency-select">
+                                                    <option value="USD">美元 USD</option>
+                                                    <option value="CNY">人民币 CNY</option>
+                                                    <option value="EUR">欧元 EUR</option>
+                                                    <option value="JPY">日元 JPY</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="format-item" data-format="timezone">
+                                        <div class="format-info">
+                                            <span class="format-name">时区转换</span>
+                                            <span class="format-desc">全球时区时间换算</span>
+                                        </div>
+                                        <div class="format-actions timezone-converter">
+                                            <div class="timezone-input-group">
+                                                <input type="datetime-local" id="timezone-time" class="timezone-input">
+                                                <select id="timezone-from" class="timezone-select">
+                                                    <option value="Asia/Shanghai">北京 (UTC+8)</option>
+                                                    <option value="America/New_York">纽约 (UTC-4)</option>
+                                                    <option value="Europe/London">伦敦 (UTC+1)</option>
+                                                    <option value="Asia/Tokyo">东京 (UTC+9)</option>
+                                                </select>
+                                            </div>
+                                            <div class="timezone-result">
+                                                <div id="timezone-results" class="timezone-list"></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

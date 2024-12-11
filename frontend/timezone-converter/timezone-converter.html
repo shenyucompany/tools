@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时区转换 | 工具箱</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="../index.html" class="nav-brand">
+                    <h2>工具箱</h2>
+                </a>
+                <div class="nav-links">
+                    <a href="../index.html">所有工具</a>
+                    <a href="#" class="active">时区转换</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <header>
+                <h1>时区转换</h1>
+                <p class="subtitle">全球时区时间换算</p>
+            </header>
+
+            <main>
+                <section class="converter-section">
+                    <div class="timezone-container">
+                        <div class="input-group">
+                            <input type="datetime-local" id="source-time" class="time-input">
+                            <select id="source-timezone" class="timezone-select">
+                                <option value="Asia/Shanghai">北京 (UTC+8)</option>
+                                <option value="America/New_York">纽约 (UTC-4)</option>
+                                <option value="Europe/London">伦敦 (UTC+1)</option>
+                                <option value="Asia/Tokyo">东京 (UTC+9)</option>
+                                <option value="Europe/Paris">巴黎 (UTC+2)</option>
+                                <option value="Australia/Sydney">悉尼 (UTC+10)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="timezone-results">
+                        <h3>全球时间</h3>
+                        <div id="time-list" class="time-list"></div>
+                    </div>
+                </section>
+
+                <section class="manual">
+                    <h2>使用说明</h2>
+                    <div class="manual-content">
+                        <h3>功能特点</h3>
+                        <ol>
+                            <li>
+                                <strong>实时转换</strong>
+                                <p>选择时间后自动更新所有时区时间</p>
+                            </li>
+                        </ol>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>工具箱</h3>
+                    <p>让工作更高效，让生活更简单</p>
+                </div>
+                <div class="footer-bottom">
+                    <p class="copyright">© 2024 工具箱 - 专注于提供高效的在线工具</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
