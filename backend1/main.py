@@ -10,13 +10,17 @@ from routers import (
 
 app = FastAPI()
 
-# 配置CORS，允许所有来源
+# 配置CORS，允许特定来源
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # 允许所有来源
+    allow_origins=[
+        "https://qinlipdf.netlify.app",  # 允许你的前端域名
+        "http://localhost:3000",         # 开发环境
+        "http://localhost:5000"          # 开发环境
+    ],
     allow_credentials=True,
-    allow_methods=["*"],  # 允许所有方法
-    allow_headers=["*"],  # 允许所有头部
+    allow_methods=["*"],      # 允许所有HTTP方法
+    allow_headers=["*"],      # 允许所有头部
     expose_headers=["Content-Disposition"]  # 允许前端访问Content-Disposition头
 )
 
