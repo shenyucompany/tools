@@ -1,30 +1,62 @@
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from fastapi.requests import Request
 from routers import (
     pdf_converter, video_converter, video_compress, video_trim, 
     video_merge, video_watermark, video_extract, video_speed, video_rotate,
     audio_converter, audio_cutter, audio_merger, audio_compressor, audio_editor,
-    audio_recorder, audio_effects, audio_extract, format_converter
+    audio_recorder, audio_effects, audio_extract, format_converter,
+    image_to_pdf
 )
 
 app = FastAPI()
 
-# 配置CORS，允许特定来源
+# 配置CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://qinlipdf.netlify.app",  # 允许你的前端域名
+        "https://qinlipdf.netlify.app",  # 生产环境
+        "http://127.0.0.1:5500",         # Live Server默认地址
+        "http://localhost:5500",         # Live Server可能的地址
         "http://localhost:3000",         # 开发环境
-        "http://localhost:5000"          # 开发环境
+        "http://localhost:5000",         # 开发环境
+        "null",                          # 允许来自本地文件的请求
     ],
     allow_credentials=True,
-    allow_methods=["*"],      # 允许所有HTTP方法
-    allow_headers=["*"],      # 允许所有头部
-    expose_headers=["Content-Disposition"]  # 允许前端访问Content-Disposition头
+    allow_methods=["*"],
+    allow_headers=[
+        "Content-Type",
+        "Authorization",
+        "Accept",
+        "Origin",
+        "User-Agent",
+        "DNT",
+        "Cache-Control",
+        "X-Requested-With",
+        "If-Modified-Since",
+        "Keep-Alive",
+        "X-File-Name",
+    ],
+    expose_headers=["Content-Disposition", "Content-Length"],
+    max_age=3600,
 )
 
+# 添加CORS预检请求处理
+@app.options("/{full_path:path}")
+async def options_handler(request: Request):
+    return JSONResponse(
+        content="OK",
+        headers={
+            "Access-Control-Allow-Origin": request.headers.get("origin", "*"),
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization, Accept",
+        },
+    )
+
 # 注册路由
+app.include_router(image_to_pdf.router)
 app.include_router(pdf_converter.router)
 app.include_router(video_converter.router)
 app.include_router(video_compress.router)

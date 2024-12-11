@@ -5,6 +5,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const progress = document.getElementById('progress');
     let selectedFiles = [];
 
+    // API基础URL
+    const API_BASE_URL = window.location.hostname === 'qinlipdf.netlify.app' 
+        ? 'https://tools-as5l.onrender.com'  // 生产环境
+        : 'http://localhost:8000';           // 开发环境
+
     // 处理文件选择
     fileInput.addEventListener('change', handleFileSelect);
 
@@ -53,46 +58,36 @@ document.addEventListener('DOMContentLoaded', function() {
             progress.innerHTML = '正在处理...';
             convertBtn.disabled = true;
 
-            // 创建PDF文档
-            const pdfDoc = await PDFLib.PDFDocument.create();
+            // 创建FormData对象
+            const formData = new FormData();
+            selectedFiles.forEach(file => {
+                formData.append('files', file);
+            });
 
-            // 处理每个图片
-            for (let i = 0; i < selectedFiles.length; i++) {
-                const file = selectedFiles[i];
-                progress.innerHTML = `正在处理第 ${i + 1}/${selectedFiles.length} 个文件...`;
-
-                // 读取图片文件
-                const imageBytes = await readFileAsArrayBuffer(file);
-                
-                // 根据图片类型选择不同的嵌入方法
-                let image;
-                if (file.type === 'image/jpeg') {
-                    image = await pdfDoc.embedJpg(imageBytes);
-                } else if (file.type === 'image/png') {
-                    image = await pdfDoc.embedPng(imageBytes);
-                } else {
-                    continue; // 跳过不支持的格式
+            // 发送请求到后端
+            const response = await fetch(`${API_BASE_URL}/api/image/to-pdf`, {
+                method: 'POST',
+                body: formData,
+                mode: 'cors',
+                credentials: 'omit',  // 不发送cookies
+                headers: {
+                    'Accept': 'application/pdf',
+                    'Origin': window.location.origin,
                 }
+            });
 
-                // 添加新页面
-                const page = pdfDoc.addPage([image.width, image.height]);
-                page.drawImage(image, {
-                    x: 0,
-                    y: 0,
-                    width: image.width,
-                    height: image.height,
-                });
+            if (!response.ok) {
+                throw new Error('转换失败');
             }
 
-            // 保存PDF
-            const pdfBytes = await pdfDoc.save();
+            // 获取转换后的PDF文件
+            const pdfBlob = await response.blob();
+            const url = URL.createObjectURL(pdfBlob);
             
             // 下载文件
-            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-            const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'converted_images.pdf';
+            a.download = 'converted_with_ocr.pdf';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
