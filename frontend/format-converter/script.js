@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 编码转换函数（需要后端支持）
     async function convertEncoding(text, fromEncoding, toEncoding) {
         try {
-            const response = await fetch('http://localhost:8000/api/format/convert-encoding', {
+            const response = await fetch('https://tools-as5l.onrender.com/api/format/convert-encoding', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
