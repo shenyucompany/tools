@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
 
         try {
-            const response = await fetch('http://localhost:8000/api/audio/edit', {
+            const response = await fetch('https://tools-as5l.onrender.com/api/audio/edit', {
                 method: 'POST',
                 body: formData
             });

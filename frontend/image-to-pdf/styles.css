@@ -52,15 +52,18 @@ h1 {
 }
 
 .upload-area {
-    border: 2px dashed #ccc;
-    border-radius: var(--border-radius);
-    padding: 30px;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    padding: 40px;
     text-align: center;
-    transition: border-color 0.3s;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.upload-area:hover {
-    border-color: var(--primary-color);
+.upload-area:hover,
+.upload-area.dragover {
+    border-color: #0066ff;
+    background-color: rgba(0, 102, 255, 0.05);
 }
 
 #folder-input {
@@ -70,8 +73,19 @@ h1 {
 .upload-icon {
     width: 48px;
     height: 48px;
-    fill: white;
-    margin-bottom: 10px;
+    margin-bottom: 16px;
+    fill: #666;
+}
+
+.upload-area:hover .upload-icon,
+.upload-area.dragover .upload-icon {
+    fill: #0066ff;
+}
+
+.upload-hint {
+    margin-top: 8px;
+    color: #666;
+    font-size: 0.9em;
 }
 
 label {
@@ -160,8 +174,8 @@ button:disabled {
 }
 
 .progress {
-    margin-top: 20px;
-    color: var(--text-secondary);
+    margin-top: 16px;
+    color: #666;
 }
 
 /* 使用说明样式 */
@@ -198,4 +212,24 @@ button:disabled {
 
 .manual strong {
     color: var(--primary-color);
+}
+
+#convert-button {
+    margin-top: 20px;
+    padding: 12px 24px;
+    background-color: #0066ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#convert-button:hover:not(:disabled) {
+    background-color: #0052cc;
+}
+
+#convert-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 } 

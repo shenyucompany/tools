@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
             formData.append('format', format);
             formData.append('name', name);
 
-            const response = await fetch('http://localhost:8000/api/audio/record/save', {
+            const response = await fetch('https://tools-as5l.onrender.com/api/audio/record/save', {
                 method: 'POST',
                 body: formData
             });
@@ -571,7 +571,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 formData.append('format', format);
 
                 try {
-                    const response = await fetch('http://localhost:8000/api/audio/record/edit', {
+                    const response = await fetch('https://tools-as5l.onrender.com/api/audio/record/edit', {
                         method: 'POST',
                         body: formData
                     });
@@ -722,7 +722,7 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append('format', 'wav');
 
         try {
-            const response = await fetch('http://localhost:8000/api/audio/effects', {
+            const response = await fetch('https://tools-as5l.onrender.com/api/audio/effects', {
                 method: 'POST',
                 body: formData
             });

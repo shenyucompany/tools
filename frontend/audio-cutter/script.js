@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
         cutBtn.textContent = '处理中...';
 
         try {
-            const response = await fetch('http://localhost:8000/api/audio/cut', {
+            const response = await fetch('https://tools-as5l.onrender.com/api/audio/cut', {
                 method: 'POST',
                 body: formData
             });

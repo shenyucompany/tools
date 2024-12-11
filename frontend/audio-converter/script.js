@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const progress = document.getElementById('progress');
 
     // 添加后端服务器地址
-    const API_BASE_URL = 'http://localhost:8000';
+    const API_BASE_URL = 'https://tools-as5l.onrender.com';
 
     fileInput.addEventListener('change', function(e) {
         const file = e.target.files[0];

@@ -30,15 +30,15 @@
             <main>
                 <section class="upload-section">
                     <div class="upload-area">
-                        <input type="file" id="folder-input" webkitdirectory directory multiple accept="image/*">
-                        <label for="folder-input">
+                        <input type="file" id="file-input" multiple accept="image/*" hidden>
+                        <label for="file-input">
                             <svg class="upload-icon" viewBox="0 0 24 24">
                                 <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
                             </svg>
-                            <span>选择图片文件夹</span>
+                            <span>选择图片文件</span>
+                            <div class="upload-hint">支持多选，可拖拽上传</div>
                         </label>
                     </div>
-                    <div id="file-list" class="file-list"></div>
                     <button id="convert-button" disabled>
                         <span class="button-text">转换并合并</span>
                     </button>
@@ -49,8 +49,8 @@
                     <h2>📖 使用说明</h2>
                     <div class="manual-content">
                         <ol>
-                            <li>点击<strong>"选择图片文件夹"</strong>按钮，选择包含需要转换的图片文件的文件夹</li>
-                            <li>系统会自动识别文件夹中的所有图片文件并显示在列表中</li>
+                            <li>点击<strong>"选择图片文件"</strong>按钮，选择需要转换的图片文件（可多选）</li>
+                            <li>也可以直接将图片文件拖拽到上传区域</li>
                             <li>支持的图片格式：JPG、PNG、GIF、BMP等常见格式</li>
                             <li>确认文件列表无误后，点击<strong>"转换并合并"</strong>按钮</li>
                             <li>等待处理完成后，系统会自动下载合并后的PDF文件</li>

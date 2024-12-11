@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
             formData.append('file', file);
             formData.append('format', audioFormat.value);
 
-            const response = await fetch('http://localhost:8000/api/audio/extract/from-video', {
+            const response = await fetch('https://tools-as5l.onrender.com/api/audio/extract/from-video', {
                 method: 'POST',
                 body: formData
             });
@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
             formData.append('file', file);
             formData.append('language', speechLanguage.value);
 
-            const response = await fetch('http://localhost:8000/api/audio/speech-to-text', {
+            const response = await fetch('https://tools-as5l.onrender.com/api/audio/speech-to-text', {
                 method: 'POST',
                 body: formData
             });
@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
             formData.append('language', ttsLanguage.value);
             formData.append('speed', speechSpeed.value);
 
-            const response = await fetch('http://localhost:8000/api/audio/text-to-speech', {
+            const response = await fetch('https://tools-as5l.onrender.com/api/audio/text-to-speech', {
                 method: 'POST',
                 body: formData
             });
