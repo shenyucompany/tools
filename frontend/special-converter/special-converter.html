@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>特殊格式转换 | 工具箱</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="../index.html" class="nav-brand">
+                    <h2>工具箱</h2>
+                </a>
+                <div class="nav-links">
+                    <a href="../index.html">所有工具</a>
+                    <a href="#" class="active">特殊格式转换</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <header>
+                <h1>特殊格式转换</h1>
+                <p class="subtitle">Base64、URL、HTML实体编解码</p>
+            </header>
+
+            <main>
+                <section class="editor-section">
+                    <div class="editor-container">
+                        <div class="input-panel">
+                            <div class="panel-header">
+                                <h3>输入文本</h3>
+                                <div class="input-controls">
+                                    <button id="paste-btn" class="control-btn">粘贴</button>
+                                    <button id="clear-btn" class="control-btn">清空</button>
+                                    <input type="file" id="file-input" accept=".txt" hidden>
+                                    <label for="file-input" class="control-btn">打开文件</label>
+                                </div>
+                            </div>
+                            <textarea id="input-text" placeholder="在此输入或粘贴文本..."></textarea>
+                        </div>
+
+                        <div class="converter-panel">
+                            <div class="format-selector">
+                                <h3>选择格式</h3>
+                                <div class="format-list">
+                                    <div class="format-item active" data-format="base64">
+                                        <div class="format-info">
+                                            <span class="format-name">Base64</span>
+                                            <span class="format-desc">用于二进制数据编码</span>
+                                        </div>
+                                        <div class="format-actions">
+                                            <button id="base64-encode" class="action-btn">编码 →</button>
+                                            <button id="base64-decode" class="action-btn">← 解码</button>
+                                        </div>
+                                    </div>
+                                    <div class="format-item" data-format="url">
+                                        <div class="format-info">
+                                            <span class="format-name">URL</span>
+                                            <span class="format-desc">网址安全字符编码</span>
+                                        </div>
+                                        <div class="format-actions">
+                                            <button id="url-encode" class="action-btn">编码 →</button>
+                                            <button id="url-decode" class="action-btn">← 解码</button>
+                                        </div>
+                                    </div>
+                                    <div class="format-item" data-format="html">
+                                        <div class="format-info">
+                                            <span class="format-name">HTML实体</span>
+                                            <span class="format-desc">HTML特殊字符转换</span>
+                                        </div>
+                                        <div class="format-actions">
+                                            <button id="html-encode" class="action-btn">编码 →</button>
+                                            <button id="html-decode" class="action-btn">← 解码</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="output-panel">
+                            <div class="panel-header">
+                                <h3>输出结果</h3>
+                                <div class="output-controls">
+                                    <button id="copy-btn" class="control-btn">复制</button>
+                                    <button id="download-btn" class="control-btn">下载</button>
+                                </div>
+                            </div>
+                            <div class="output-content"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="manual">
+                    <h2>使用说明</h2>
+                    <div class="manual-content">
+                        <h3>Base64 编解码</h3>
+                        <ol>
+                            <li>支持任意文本的<strong>Base64编码</strong>和<strong>解码</strong></li>
+                            <li>常用于处理二进制数据、图片等的文本表示</li>
+                        </ol>
+
+                        <h3>URL 编解码</h3>
+                        <ol>
+                            <li>将特殊字符转换为<strong>URL安全</strong>的格式</li>
+                            <li>支持中文等非ASCII字符的编解码</li>
+                        </ol>
+
+                        <h3>HTML实体编解码</h3>
+                        <ol>
+                            <li>将特殊字符转换为<strong>HTML实体</strong>格式</li>
+                            <li>确保HTML代码中的特殊字符正确显示</li>
+                        </ol>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>工具箱</h3>
+                    <p>让工作更高效，让生活更简单</p>
+                </div>
+                <div class="footer-bottom">
+                    <p class="copyright">© 2024 工具箱 - 专注于提供高效的在线工具</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

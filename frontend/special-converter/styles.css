@@ -1,0 +1,330 @@
+/* 编辑器部分样式 */
+.editor-section {
+    background: white;
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 40px;
+}
+
+.editor-container {
+    display: grid;
+    grid-template-columns: 1fr 300px 1fr;
+    gap: 30px;
+}
+
+/* 输入输出面板样式 */
+.input-panel,
+.output-panel {
+    display: flex;
+    flex-direction: column;
+    height: 800px;
+    gap: 10px;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    height: 40px;
+}
+
+.panel-header h3 {
+    color: var(--text-primary);
+    font-size: 1.1em;
+    margin: 0;
+}
+
+.input-controls,
+.output-controls {
+    display: flex;
+    gap: 10px;
+}
+
+#input-text {
+    flex: 1;
+    height: 740px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    resize: none;
+    box-sizing: border-box;
+}
+
+.output-content {
+    width: 100%;
+    height: 740px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    background: var(--background-light);
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow: auto;
+    white-space: pre-wrap;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* 转换器面板样式 */
+.converter-panel {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    border: 1px solid #eee;
+}
+
+.format-selector h3 {
+    color: var(--text-primary);
+    font-size: 1.1em;
+    margin: 0 0 20px 0;
+}
+
+.format-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.format-item {
+    background: var(--background-light);
+    border: 1px solid #eee;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.format-item:hover {
+    border-color: var(--primary-color);
+    background: white;
+}
+
+.format-item.active {
+    border-color: var(--primary-color);
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 102, 255, 0.1);
+}
+
+.format-info {
+    margin-bottom: 15px;
+}
+
+.format-name {
+    display: block;
+    font-size: 1.1em;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 5px;
+}
+
+.format-desc {
+    display: block;
+    font-size: 0.9em;
+    color: var(--text-secondary);
+}
+
+.format-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.action-btn {
+    flex: 1;
+    padding: 12px 20px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    background: white;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+    transform: translateY(-1px);
+}
+
+.action-btn:active {
+    transform: translateY(0);
+}
+
+/* 使用说明样式 */
+.manual {
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.manual h2 {
+    color: var(--text-primary);
+    margin: 0 0 25px 0;
+    font-size: 1.5em;
+}
+
+.manual-content {
+    padding: 25px;
+    background: var(--background-light);
+    border-radius: var(--border-radius);
+    border: 1px solid #eee;
+}
+
+.manual h3 {
+    color: var(--text-primary);
+    font-size: 1.2em;
+    margin: 0 0 15px 0;
+}
+
+.manual h3:not(:first-child) {
+    margin-top: 30px;
+}
+
+.manual ol {
+    list-style: none;
+    counter-reset: item;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 12px;
+}
+
+.manual li {
+    position: relative;
+    padding: 15px 20px 15px 45px;
+    background: white;
+    border: 1px solid #eee;
+    border-radius: var(--border-radius);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    counter-increment: item;
+    transition: all 0.3s ease;
+}
+
+.manual li:before {
+    content: counter(item);
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.manual li:hover {
+    border-color: var(--primary-color);
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(0, 102, 255, 0.1);
+}
+
+.manual strong {
+    color: var(--primary-color);
+    font-weight: 500;
+    padding: 2px 6px;
+    background: rgba(0, 102, 255, 0.1);
+    border-radius: 4px;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+    .editor-container {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .converter-panel {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .manual-content {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .editor-section {
+        padding: 20px;
+    }
+
+    .editor-container {
+        grid-template-columns: 1fr;
+    }
+
+    .converter-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .panel-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        height: auto;
+    }
+
+    .input-controls,
+    .output-controls {
+        width: 100%;
+    }
+
+    .control-btn {
+        flex: 1;
+        text-align: center;
+    }
+
+    .manual {
+        padding: 20px;
+    }
+
+    .manual-content {
+        padding: 15px;
+    }
+
+    .manual h2 {
+        font-size: 1.3em;
+        margin-bottom: 20px;
+    }
+
+    .manual h3 {
+        font-size: 1.1em;
+        margin: 25px 0 12px;
+    }
+
+    .manual h3:first-child {
+        margin-top: 0;
+    }
+
+    .manual li {
+        padding: 12px 15px 12px 40px;
+        font-size: 0.95em;
+    }
+
+    .manual li:before {
+        left: 12px;
+    }
+
+    .manual li:hover {
+        transform: none;
+    }
+} 
