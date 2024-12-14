@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时间戳转换工具 | 工具箱</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="../index.html" class="nav-brand">
+                    <h2>工具箱</h2>
+                </a>
+                <div class="nav-links">
+                    <a href="../index.html">所有工具</a>
+                    <a href="#" class="active">时间戳转换</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <header>
+                <h1>时间戳转换工具</h1>
+                <p class="subtitle">在时间戳和北京时间之间轻松转换</p>
+            </header>
+
+            <main>
+                <div class="converter-section">
+                    <div class="converter-panel">
+                        <h2>时间戳转北京时间</h2>
+                        <div class="input-group">
+                            <input type="number" id="timestamp-input" placeholder="请输入时间戳">
+                            <select id="timestamp-unit">
+                                <option value="s">秒</option>
+                                <option value="ms">毫秒</option>
+                            </select>
+                        </div>
+                        <button id="to-datetime-btn" class="convert-btn">转换</button>
+                        <div class="result" id="datetime-result"></div>
+                    </div>
+
+                    <div class="converter-panel">
+                        <h2>北京时间转时间戳</h2>
+                        <div class="input-group">
+                            <input type="datetime-local" id="datetime-input" step="1">
+                        </div>
+                        <button id="to-timestamp-btn" class="convert-btn">转换</button>
+                        <div class="result" id="timestamp-result"></div>
+                    </div>
+                </div>
+
+                <div class="current-time">
+                    <h3>当前时间</h3>
+                    <div id="current-datetime"></div>
+                    <div id="current-timestamp"></div>
+                </div>
+
+                <section class="manual">
+                    <h2>📖 使用说明</h2>
+                    <div class="manual-content">
+                        <h3>时间戳转北京时间</h3>
+                        <ol>
+                            <li>在输入框中<strong>输入时间戳</strong></li>
+                            <li>选择时间戳的<strong>单位</strong>（秒/毫秒）</li>
+                            <li>点击<strong>转换</strong>按钮查看结果</li>
+                        </ol>
+
+                        <h3>北京时间转时间戳</h3>
+                        <ol>
+                            <li>在日期时间选择器中<strong>选择时间</strong></li>
+                            <li>点击<strong>转换</strong>按钮</li>
+                            <li>可同时获得<strong>秒级</strong>和<strong>毫秒级</strong>时间戳</li>
+                        </ol>
+
+                        <h3>当前时间</h3>
+                        <ol>
+                            <li>页面底部显示<strong>实时</strong>的北京时间</li>
+                            <li>同时显示当前时间对应的<strong>时间戳</strong></li>
+                            <li>数据每秒<strong>自动更新</strong></li>
+                        </ol>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>工具箱</h3>
+                    <p>让工作更高效，让生活更简单</p>
+                </div>
+                <div class="footer-bottom">
+                    <p class="copyright">© 2024 工具箱 - 专注于提供高效的在线工具</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

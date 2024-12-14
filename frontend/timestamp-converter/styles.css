@@ -1,0 +1,261 @@
+:root {
+    --primary-color: #0066ff;
+    --primary-dark: #0052cc;
+    --success-color: #4CAF50;
+    --success-dark: #45a049;
+    --text-primary: #1a1a1a;
+    --text-secondary: #666666;
+    --background-light: #f8f9fa;
+    --border-radius: 8px;
+    --box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 转换器部分样式 */
+.converter-section {
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 40px;
+}
+
+.converter-panel {
+    background: var(--background-light);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+}
+
+.converter-panel:last-child {
+    margin-bottom: 0;
+}
+
+.converter-panel h2 {
+    color: var(--text-primary);
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.input-group select {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    background: white;
+    min-width: 100px;
+}
+
+.convert-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.3s;
+}
+
+.convert-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.result {
+    margin-top: 20px;
+    padding: 15px;
+    background: white;
+    border-radius: var(--border-radius);
+    min-height: 50px;
+    word-break: break-all;
+    border: 1px solid #eee;
+}
+
+/* 当前时间显示部分 */
+.current-time {
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.current-time h3 {
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+#current-datetime,
+#current-timestamp {
+    font-family: monospace;
+    font-size: 1.1em;
+    margin: 10px 0;
+    color: var(--text-secondary);
+    background: var(--background-light);
+    padding: 12px;
+    border-radius: var(--border-radius);
+    display: inline-block;
+    min-width: 250px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .converter-section {
+        padding: 20px;
+    }
+    
+    .converter-panel {
+        padding: 20px;
+    }
+    
+    .input-group {
+        flex-direction: column;
+    }
+    
+    .input-group select {
+        width: 100%;
+    }
+    
+    .current-time {
+        padding: 20px;
+    }
+} 
+
+/* 使用说明样式 */
+.manual {
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 40px;
+}
+
+.manual h2 {
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.manual h3 {
+    color: var(--text-primary);
+    margin: 25px 0 15px;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 15px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.manual h3:first-child {
+    margin-top: 0;
+}
+
+.manual-content {
+    padding: 25px;
+    background: var(--background-light);
+    border-radius: var(--border-radius);
+    border: 1px solid #eee;
+}
+
+.manual ol {
+    padding-left: 25px;
+    counter-reset: item;
+    list-style: none;
+    margin-bottom: 30px;
+}
+
+.manual ol:last-child {
+    margin-bottom: 0;
+}
+
+.manual li {
+    margin-bottom: 12px;
+    color: var(--text-secondary);
+    position: relative;
+    padding-left: 15px;
+    line-height: 1.6;
+    counter-increment: item;
+}
+
+.manual li:before {
+    content: counter(item);
+    position: absolute;
+    left: -25px;
+    width: 24px;
+    height: 24px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.manual li:last-child {
+    margin-bottom: 0;
+}
+
+.manual strong {
+    color: var(--primary-color);
+    font-weight: 500;
+    padding: 2px 6px;
+    background: rgba(0, 102, 255, 0.1);
+    border-radius: 4px;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .manual {
+        padding: 20px;
+    }
+
+    .manual-content {
+        padding: 20px;
+    }
+
+    .manual h2 {
+        font-size: 1.3em;
+    }
+
+    .manual h3 {
+        font-size: 1.1em;
+        margin: 20px 0 12px;
+    }
+
+    .manual ol {
+        margin-bottom: 20px;
+    }
+
+    .manual li {
+        font-size: 0.95em;
+    }
+} 
