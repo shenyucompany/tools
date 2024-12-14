@@ -1,0 +1,382 @@
+:root {
+    --primary-color: #0066ff;
+    --primary-dark: #0052cc;
+    --success-color: #4CAF50;
+    --success-dark: #45a049;
+    --text-primary: #1a1a1a;
+    --text-secondary: #666666;
+    --background-light: #f8f9fa;
+    --border-radius: 8px;
+    --box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 主要内容区域 */
+.generator-section {
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 40px;
+}
+
+/* 选项和结果面板 */
+.options-panel, .result-panel {
+    background: var(--background-light);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    border: 1px solid #eee;
+}
+
+.option-group {
+    margin-bottom: 25px;
+}
+
+.option-group:last-child {
+    margin-bottom: 0;
+}
+
+.option-group > label {
+    display: block;
+    color: var(--text-primary);
+    font-weight: 500;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+/* 滑块控制 */
+.length-control {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: white;
+    padding: 15px;
+    border-radius: var(--border-radius);
+    border: 1px solid #eee;
+}
+
+#length-slider {
+    flex: 1;
+    -webkit-appearance: none;
+    height: 6px;
+    background: #ddd;
+    border-radius: 3px;
+    outline: none;
+}
+
+#length-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#length-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 6px rgba(0, 102, 255, 0.1);
+}
+
+#length-value {
+    min-width: 40px;
+    text-align: center;
+    font-family: monospace;
+    font-size: 1.2em;
+    color: var(--text-primary);
+    background: var(--background-light);
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+/* 复选框组 */
+.checkbox-group {
+    display: grid;
+    gap: 12px;
+    background: white;
+    padding: 15px;
+    border-radius: var(--border-radius);
+    border: 1px solid #eee;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.checkbox:hover {
+    background: var(--background-light);
+}
+
+.checkbox input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-color);
+}
+
+.checkbox span {
+    color: var(--text-secondary);
+}
+
+/* 生成按钮 */
+.generate-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 25px;
+}
+
+.generate-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+/* 密码显示区域 */
+.password-display {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+#password-output {
+    flex: 1;
+    padding: 12px 15px;
+    font-family: monospace;
+    font-size: 1.2em;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    background: white;
+    color: var(--text-primary);
+    cursor: text;
+}
+
+.copy-btn {
+    padding: 8px;
+    background: var(--primary-color);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.copy-btn svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+}
+
+.copy-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+/* 历史记录 */
+.password-history {
+    background: white;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    border: 1px solid #eee;
+}
+
+.password-history h3 {
+    color: var(--text-primary);
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+#history-list {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: var(--background-light);
+    border-radius: var(--border-radius);
+    margin-bottom: 8px;
+    transition: transform 0.3s;
+}
+
+.history-item:hover {
+    transform: translateX(5px);
+}
+
+.history-item:last-child {
+    margin-bottom: 0;
+}
+
+.history-password {
+    font-family: monospace;
+    color: var(--text-primary);
+    font-size: 1.1em;
+}
+
+.history-time {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    padding: 4px 8px;
+    background: white;
+    border-radius: 4px;
+}
+
+/* 使用说明样式 */
+.manual {
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.manual h2 {
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.manual-content {
+    padding: 25px;
+    background: var(--background-light);
+    border-radius: var(--border-radius);
+    border: 1px solid #eee;
+}
+
+.manual h3 {
+    color: var(--text-primary);
+    margin: 25px 0 15px;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 15px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.manual h3:first-child {
+    margin-top: 0;
+}
+
+.manual ol {
+    padding-left: 25px;
+    counter-reset: item;
+    list-style: none;
+    margin-bottom: 30px;
+}
+
+.manual ol:last-child {
+    margin-bottom: 0;
+}
+
+.manual li {
+    margin-bottom: 12px;
+    color: var(--text-secondary);
+    position: relative;
+    padding-left: 15px;
+    line-height: 1.6;
+    counter-increment: item;
+}
+
+.manual li:before {
+    content: counter(item);
+    position: absolute;
+    left: -25px;
+    width: 24px;
+    height: 24px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.manual li:last-child {
+    margin-bottom: 0;
+}
+
+.manual strong {
+    color: var(--primary-color);
+    font-weight: 500;
+    padding: 2px 6px;
+    background: rgba(0, 102, 255, 0.1);
+    border-radius: 4px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .generator-section {
+        padding: 20px;
+    }
+
+    .options-panel, 
+    .result-panel {
+        padding: 20px;
+    }
+
+    .length-control,
+    .checkbox-group {
+        padding: 12px;
+    }
+
+    .password-display {
+        flex-direction: column;
+    }
+
+    .copy-btn {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .history-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .manual {
+        padding: 20px;
+    }
+
+    .manual-content {
+        padding: 20px;
+    }
+
+    .manual h2 {
+        font-size: 1.3em;
+    }
+
+    .manual h3 {
+        font-size: 1.1em;
+        margin: 20px 0 12px;
+    }
+
+    .manual ol {
+        margin-bottom: 20px;
+    }
+
+    .manual li {
+        font-size: 0.95em;
+    }
+} 
